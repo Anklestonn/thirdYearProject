@@ -5,6 +5,6 @@ Original decryption idea:
 
 a honeypot that logs the max amount info
 
-carving and extracting data from second hand computers
-
-malware
+malware:
+	vps for proxy or command+control
+	langs: C/C++, Rust, Nim, Python, 
