@@ -8,7 +8,8 @@ fn main() {
     
     if let Ok(stream) = TcpStream::connect("127.0.0.1:7878") {
         println!("Could connect to server!");
-        handle_connection(stream)
+        
+        handle_connection(stream);
 
 
     } else {

@@ -1,4 +1,5 @@
 use std::net::{TcpListener,TcpStream};
+use std::thread;
 use std::io::{BufReader,BufRead,Write};
 
 
@@ -9,7 +10,10 @@ fn main() {
         let stream = stream.unwrap();
 
         println!("A new connection!");
-        handle_connection(stream);
+
+        thread::spawn(|| {
+            handle_connection(stream);
+        });
     }
 }
 
