@@ -24,7 +24,7 @@ fn handle_connection(mut stream: TcpStream) {
     let message = "I am a client ;)\r\nalllala\r\n\r\n";
 
     stream.write_all(message.as_bytes()).unwrap();
-    println!("Packet sent!");
+    println!("Send: {:#?}", message.lines().collect::<Vec<_>>());
 
     let contents: Vec <_> = BufReader::new(&mut stream)
         .lines()
@@ -32,7 +32,7 @@ fn handle_connection(mut stream: TcpStream) {
         .take_while(|line| !line.is_empty())
         .collect();
 
-    println!("Answer: {:#?}", contents);
+    println!("Received: {:#?}", contents);
 }
 
 

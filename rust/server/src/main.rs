@@ -3,6 +3,8 @@ use std::thread;
 use std::io::{BufReader,BufRead,Write};
 
 
+
+
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
 
@@ -11,7 +13,7 @@ fn main() {
 
         println!("A new connection!");
 
-        thread::spawn(|| {
+        thread::spawn(move || {
             handle_connection(stream);
         });
     }
@@ -25,12 +27,14 @@ fn handle_connection(mut stream: TcpStream) {
         .take_while(|line| !line.is_empty())
         .collect();
     
-    println!("Request: {:#?}'", contents);
+    println!("Received: {:#?}'", contents);
     
     // To make a new line, enter \r\n, to signal the End of String, \r\n\r\n
     let response = "Okay, do nothing for now o/\r\n\r\n";
 
     stream.write_all(response.as_bytes()).unwrap();
+    println!("Send: {:#?}", response.lines().collect::<Vec<_>>());
+
 
     
 }
