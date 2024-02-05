@@ -1,4 +1,5 @@
 
+use openssl::ssl::{SslMethod, SslConnector, SslStream, SslVerifyMode};
 use std::io::{BufReader, BufRead, Write};
 use std::net::TcpStream;
 
@@ -6,7 +7,15 @@ use std::net::TcpStream;
 
 fn main() {
     
+    let builder = SslConnector::builder(SslMethod::tls());
+    let mut builder = builder.expect("dk");
+    builder.set_verify(SslVerifyMode::empty());
+    let connector = builder.build();
+
     if let Ok(stream) = TcpStream::connect("127.0.0.1:7878") {
+        
+        let stream = connector.connect("127.0.0.1",stream).unwrap();
+
         println!("Could connect to server!");
         
         handle_connection(stream);
@@ -19,9 +28,10 @@ fn main() {
 }
 
 
-fn handle_connection(mut stream: TcpStream) {
+fn handle_connection(mut stream: SslStream<TcpStream>) {
     // To make a new line, enter \r\n, to signal the End of String, \r\n\r\n
     let message = "I am a client ;)\r\nalllala\r\n\r\n";
+
 
     stream.write_all(message.as_bytes()).unwrap();
     println!("Send: {:#?}", message.lines().collect::<Vec<_>>());
