@@ -1,14 +1,30 @@
+#!/bin/sh
 
-option="-display gtk \
+option="-display sdl,gl=on,show-cursor=on \
+    -device virtio-vga-gl \
     -usbdevice tablet \
     -daemonize"
 
+#if [ "$1" == "sandbox" ]
+#then
+#	ip link add dev tap0 mode tap
+#	ip a add 10.0.2.100/24 dev tap0
+#fi
+
 ip link add br0 type bridge
-ip link set dev tap0 master br0
-ip address delete 10.0.2.100/24 dev tap0
-ip address add 10.0.2.100/24 dev br0
-ip link set dev br0 up
-ip route add default via 10.0.2.0 dev br0
+if ip link set dev tap0 master br0
+then 
+    ip address delete 10.0.2.100/24 dev tap0
+    ip address add 10.0.2.100/24 dev br0
+
+    ip link set dev br0 up
+    ip route add default via 10.0.2.0 dev br0
+else
+    echo "Info: Envirenment sandbox"
+    ip link set dev br0 up
+fi
+
+echo "$(ip a)"
 if cat /etc/qemu/bridge.conf | grep -q "br0"
 then
     echo "br0 already authorised by qemu"
@@ -24,7 +40,7 @@ qemu-system-x86_64 \
     -smp "4" \
     -netdev bridge,id=br0,br=br0 \
     -device virtio-net,netdev=br0,mac="AA:BB:CC:DD:EE:00" \
-    -m "2G" \
+    -m "4G" \
     -drive file="server.cow",index=2,id=maindrive,media=disk \
     $option
 
@@ -35,8 +51,9 @@ qemu-system-x86_64 \
     -smp "4" \
     -netdev bridge,id=br0,br=br0 \
     -device virtio-net,netdev=br0,mac="AA:BB:CC:DD:EE:01" \
-    -m "2G" \
+    -m "4G" \
     -drive file="client.cow",index=2,id=maindrive,media=disk \
     $option
 
 
+echo "end of qemu"

@@ -1,7 +1,10 @@
 
-option="-display gtk \
+
+option="-display sdl,gl=on,show-cursor=on \
+    -device virtio-vga-gl \
     -usbdevice tablet \
     -daemonize"
+
 
 ip link add br0 type bridge
 ip link set dev tap0 master br0
@@ -40,10 +43,10 @@ qemu-system-x86_64 \
     -smp "4" \
     -netdev bridge,id=br0,br=br0 \
     -device virtio-net,netdev=br0,mac="AA:BB:CC:DD:EE:00" \
-    -m "2G" \
+    -m "4G" \
     -drive file="server.cow",index=2,id=maindrive,media=disk \
     -boot d \
-    -drive file=image.iso,if=none,media=cdrom,id=drive-cd1 \
+    -drive file="$1",if=none,media=cdrom,id=drive-cd1 \
     -device ide-cd,drive=drive-cd1,id=cd1,bootindex=1 \
     $option
 
@@ -54,10 +57,10 @@ qemu-system-x86_64 \
     -smp "4" \
     -netdev bridge,id=br0,br=br0 \
     -device virtio-net,netdev=br0,mac="AA:BB:CC:DD:EE:01" \
-    -m "2G" \
+    -m "4G" \
     -drive file="client.cow",index=2,id=maindrive,media=disk \
     -boot d \
-    -drive file=image.iso,if=none,media=cdrom,id=drive-cd1 \
+    -drive file=$1,if=none,media=cdrom,id=drive-cd1 \
     -device ide-cd,drive=drive-cd1,id=cd1,bootindex=1 \
     $option
 
