@@ -7,7 +7,7 @@
 # Start in sandbox mode. (no internet)
 
 
-usage="Usage: $(basename $0) [ install absolute-path-iso | maintenance | start ]
+usage="Usage: $(basename $0) [ install absolute-path-iso | internet | sandbox ]
 
 Lanch two vms on the same network.
 
