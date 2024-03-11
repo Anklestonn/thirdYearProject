@@ -7,7 +7,7 @@
 # Start in sandbox mode. (no internet)
 
 
-usage="Usage: $(basename $0) [ install absolute-path-iso | maintenance | start ]
+usage="Usage: $(basename $0) [ install absolute-path-iso | internet | sandbox ]
 
 Lanch two vms on the same network.
 
@@ -29,7 +29,7 @@ case "$1" in
         rootlesskit --net=slirp4netns --copy-up=/etc bash
         ;;
     "install")
-	    if [ $# == 2 ]
+	    if [ $# -eq 2 ]
 	    then
             echo "$1"
             exec rootlesskit --net=slirp4netns --copy-up=/etc bash -c "./.create.sh $2" &
