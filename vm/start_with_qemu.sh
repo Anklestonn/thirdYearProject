@@ -29,7 +29,7 @@ case "$1" in
         rootlesskit --net=slirp4netns --copy-up=/etc bash
         ;;
     "install")
-	    if [ $# == 2 ]
+	    if [ $# -eq 2 ]
 	    then
             echo "$1"
             exec rootlesskit --net=slirp4netns --copy-up=/etc bash -c "./.create.sh $2" &
