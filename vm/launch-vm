@@ -1,9 +1,15 @@
 #!/bin/sh
 
-option="-display sdl,gl=on,show-cursor=on \
+option2="-display sdl,gl=on,show-cursor=on \
     -device virtio-vga-gl \
     -usbdevice tablet \
     -daemonize"
+
+option="-display gtk,gl=on,show-cursor=on,show-menubar=off \
+    -device virtio-gpu-gl \
+    -usbdevice tablet \
+    -daemonize"
+
 
 #if [ "$1" == "sandbox" ]
 #then

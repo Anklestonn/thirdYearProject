@@ -1,10 +1,14 @@
 
 
-option="-display sdl,gl=on,show-cursor=on \
+option2="-display sdl,gl=on,show-cursor=on \
     -device virtio-vga-gl \
     -usbdevice tablet \
     -daemonize"
 
+option="-display gtk,gl=on,show-cursor=on,show-menubar=off \
+    -device virtio-gpu-gl \
+    -usbdevice tablet \
+    -daemonize"
 
 ip link add br0 type bridge
 ip link set dev tap0 master br0
@@ -17,7 +21,7 @@ echo "$(ip a)"
 if cat /etc/qemu/bridge.conf | grep -q "br0"
 then
     echo "br0 already authorised by qemu"
-else
+els
     echo "allow br0" | tee -a /etc/qemu/bridge.conf
     echo "entry added to /etc/qemu/bridge.conf"
 fi
