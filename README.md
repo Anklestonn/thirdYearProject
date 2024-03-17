@@ -1,6 +1,6 @@
 # This is our Group Project
 
-Test
+Use the script located at https://gitea.ahur.ac/statzitz/remote_connection to initiate ssh connections.
 
 # Apache setup dependencies
 1.  Apache2
