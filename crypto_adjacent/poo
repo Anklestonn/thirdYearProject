@@ -1,0 +1,12 @@
+JASO MY NAME I S JASON
+
+node:
+1. server vm or separate vm acting as a remote node
+
+WALLET
+1. downloading, configuration and setup of the wallet should be automated
+2. create a new wallet, mine it to this address and pass on the necessary info(address+seeds) to the server, perhaps in json format, or text format(format TBD)
+
+
+MINER
+1. should use p2pool.io
