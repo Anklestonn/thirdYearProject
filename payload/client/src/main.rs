@@ -50,6 +50,8 @@ fn handle_connection(mut stream: SslStream<TcpStream>) {
         .collect();
 
     println!("Received: {:#?}", contents);
+
+    println!("End of connection \n");
 }
 
 
