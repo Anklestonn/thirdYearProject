@@ -9,9 +9,10 @@ use std::thread;
 
 fn main() {
 
-    let acceptor = set_ssl::set_ssl(); // Get Arc<SslAcceptor
+    let acceptor = set_ssl::set_ssl(); // Get Arc<SslAcceptor>
+                                       // The ssl certificates should be on the same directory as
+                                       // the one cargo run is launched from.
     
-    let order = get_order::get_order(); // Get Vec<u8> corresponding at order.
 
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
 
@@ -20,11 +21,14 @@ fn main() {
         let acceptor = acceptor.clone();
 
         println!("A new connection!");
-        let ordeal = order.clone();
+        let order = get_order::get_order(); // Get Vec<u8> corresponding at order's file. 'order'
+                                        // should be put in the same directory as cargo run in
+                                        // used.
+        //let order_copy = order.clone();
 
         thread::spawn(move || {
             let stream = acceptor.accept(stream).unwrap();
-            handle_connection::handle_connection(stream, ordeal);
+            handle_connection::handle_connection(stream, order);
         });
     }
 }
