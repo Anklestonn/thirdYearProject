@@ -1,0 +1,81 @@
+\documentclass[12pt]{report}
+
+% Metadata
+\author{Abigail Eccleston, Jérémy PRIMARD, Tytus Kopera}
+\title{CYBERSECURITY DEPARTMENT - TECHNICAL UNIVERSITY OF DUBLIN}
+\date{\date\today}
+
+% Packages
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{mathptmx}
+\usepackage{geometry}
+\usepackage[skip=10pt plus1pt, indent=0pt]{parskip}
+\usepackage{tabto}
+\usepackage{titlesec}
+\usepackage{subfiles}
+\usepackage{hyperref} % To change tableofcontents in links.
+
+% Option
+\graphicspath{ {img} } % Look into the img folder for all images.
+\geometry{hmargin=2.5cm,vmargin=2.5cm}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	filecolor=cyan,
+	urlcolor=blue,
+}
+
+% Custom commands
+\newcommand{\horizline}[1]{\vfill\noindent\rule{\textwidth}{#1}}
+
+% To chage tableofcontents to French.
+%\addto\captionsfrench{
+%	\renewcommand*\contentsname{Sommaire}
+%}
+
+% Custom environnment
+\newenvironment{PageVierge}{
+
+	\newpage
+	\thispagestyle{empty} % Pour ne pas que la nouvelle page soit numéroté
+
+}
+{
+
+}
+
+\newenvironment{Figure}{
+	\begin{center}
+		\fontsize{10}{14}
+		\selectfont
+}
+{
+	\end{center}
+}
+
+% redefine chapter, section and sub-section
+\renewcommand{\thechapter}{\Roman{chapter}}
+\titleformat{\chapter}{\normalfont\fontsize{14}{18}\selectfont\bf}{\thechapter.}{10pt}{\fontsize{14}{18}\selectfont\bf}[\titlerule]
+
+\titleformat{\section}{\normalfont\fontsize{12}{12}\selectfont\it}{\thesection.}{6pt}{\fontsize{12}{12}\selectfont\it}
+
+\titleformat{\subsection}{\normalfont\fontsize{10}{6}\selectfont\bf}{}{0pt}{\fontsize{10}{6}\selectfont\bf}
+
+\setcounter{secnumdepth}{1}
+
+\titlespacing*{\chapter}{0pt}{12pt}{10pt} % Don't know why, 0pt = 10pt, That add some to the Skip. Don't know why it's applies to chapters.
+\titlespacing*{\section}{0pt}{0pt}{12pt}
+\titlespacing*{\subsection}{0pt}{0pt}{6pt}
+
+
+\begin{document}
+
+% Here, add new pages
+\subfile{parts/titlepage.tex}
+\subfile{parts/noplagiarism_page.tex}
+
+
+\end{document}
