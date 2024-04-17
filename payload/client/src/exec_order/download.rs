@@ -5,6 +5,3 @@ pub fn download(file: String) {
     // If the file already exists, remove it.
 }
 
-pub fn execute(program: String) {
-    // Execute a file already download.
-}
