@@ -1,4 +1,4 @@
-use std::io::{BufReader, BufRead, Write, Read};
+use std::io::{BufReader, Write, Read};
 use std::net::TcpStream;
 use openssl::ssl::SslStream;
 use std::fs::File;
@@ -9,9 +9,8 @@ fn print_type_of<T>(_: &T) {
     println!("{}", std::any::type_name::<T>())
 }
 
-#[allow(dead_code)]
-pub fn handle_connection(mut stream: SslStream<TcpStream>){
-    let message = "this is a message from the client\r\n\r\n";
+pub fn handle_connection(mut stream: SslStream<TcpStream>, file_requests: &str){
+    let message = file_requests.to_owned() + "\r\n\r\n";
 
     stream.write_all(message.as_bytes()).unwrap();
     println!("Sent: {:#?}", message.lines().collect::<Vec<_>>());
@@ -37,7 +36,7 @@ pub fn handle_connection(mut stream: SslStream<TcpStream>){
         contents.append(&mut vec_bytes);
     }
 
-    let file_result = File::create("file_from_server"); 
+    let file_result = File::create("../downloaded/".to_owned() + file_requests); 
     match file_result {
         Ok(mut file) => match file.write_all(&contents) {
                 Ok(_) => println!("Writing Ok"),
