@@ -1,4 +1,4 @@
-use std::io::{BufReader, BufRead, Write};
+use std::io::{BufReader, BufRead, Write, Read};
 use std::net::TcpStream;
 use openssl::ssl::SslStream;
 use std::fs::File;
@@ -25,12 +25,16 @@ pub fn handle_connection(mut stream: SslStream<TcpStream>){
     
     let mut contents: Vec<u8> = Vec::new();
 
-    for line in BufReader::new(&mut stream).lines() {
-        let string = match line {
-            Ok(string) => string,
-            Err(..) => "".to_owned(),
+    for byte in BufReader::new(&mut stream).bytes() {
+        let mut vec_bytes = match byte {
+            Ok(b) => vec![b],
+            Err(e) => {
+                dbg!(e);
+                println!("Error when recovering bytes.");
+                vec![0]
+            },
         };
-        contents.append(&mut string.into_bytes());
+        contents.append(&mut vec_bytes);
     }
 
     let file_result = File::create("file_from_server"); 
