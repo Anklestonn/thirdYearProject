@@ -34,16 +34,14 @@ pub fn handle_connection(mut stream: SslStream<TcpStream>){
     }
 
     let file_result = File::create("file_from_server"); 
-    let mut file = match file_result {
-        Ok(f) => f,
-        Err(..) => panic!("Error, impossible to write to the file.")
+    match file_result {
+        Ok(mut file) => match file.write_all(&contents) {
+                Ok(_) => println!("Writing Ok"),
+                Err(..) => println!("Err with the writing."),
+        },
+        Err(..) => println!("Error, impossible to write to the file.")
     };
     //   print_type_of(&contents); //   contents is of type Vec<T>
-    let result = file.write_all(&contents);
-    match result {
-        Ok(_) => println!("Writing Ok"),
-        Err(..) => println!("Err with the writing."),
-    };
 
     //file.expect("something").write_all(&contents);
 
