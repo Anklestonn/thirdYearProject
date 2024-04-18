@@ -1,6 +1,7 @@
 use std::io::{BufReader, BufRead, Write};
 use std::net::TcpStream;
 use openssl::ssl::SslStream;
+use std::fs::read;
 
 pub fn handle_connection(mut stream: SslStream<TcpStream>, data: Vec<u8>){
     let buf_reader = BufReader::new(&mut stream);
@@ -17,6 +18,6 @@ pub fn handle_connection(mut stream: SslStream<TcpStream>, data: Vec<u8>){
 
 pub fn data_from_server() -> Vec<u8>{
 
-    let response = "This is data sent from the server\r\n\r\n";
-    return response.as_bytes().to_vec();
+    let response = read("file_from_server");
+    response.expect("Error reading file")
 }
