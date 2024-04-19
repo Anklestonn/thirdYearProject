@@ -1,15 +1,9 @@
 
 mod ssl_builder;
-mod handle_connection;
-mod make_one_string;
-mod write_order;
-mod exec_order;
+mod connection;
 
 use std::net::TcpStream;
 use std::process::Command;
-
-// use std::io::prelude::*;
-
 
 fn main() {
 
@@ -17,25 +11,16 @@ fn main() {
     
         let connector = ssl_builder::ssl_builder();
         
-        if let Ok(stream) = TcpStream::connect("127.0.0.1:7878") {
-            
-            let stream = connector.connect("127.0.0.1",stream).unwrap();
-
-            println!("Could connect to server!");
-            
-            let contents = handle_connection::handle_connection(stream);
-
-            let content_as_string = make_one_string::make_one_string(contents.clone());
-
-            exec_order::exec_order(contents); // TODO
-
-            write_order::write_order(content_as_string);
-
-            println!("End of connection \n");
-
-
+        if let Ok(stream_cc) = TcpStream::connect("127.0.0.1:7878") {
+            if let Ok(stream_fs) = TcpStream::connect("127.0.0.1:7870") {
+                let stream_cc = connector.connect("127.0.0.1",stream_cc).unwrap();
+                let stream_fs = connector.connect("127.0.0.1",stream_fs).unwrap();
+                connection::flow(stream_cc, stream_fs);
+            } else {
+                println!("Counldn't connect to the file_sharing socket. Is the server is up ?")
+            }
         } else {
-            println!("Couldn't connect to socket. Is the server is up ?");
+            println!("Couldn't connect to the cc socket. Is the server is up ?");
         }
 
         let _ = Command::new("sleep")
