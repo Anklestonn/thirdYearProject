@@ -12,7 +12,7 @@ pub fn handle_connection_cc(mut stream: SslStream<TcpStream>, order: Vec<u8>) {
         .take_while(|line| !line.is_empty())
         .collect();
     
-    println!("Received: {:#?}'", contents);
+    println!("Received (CC): {:#?}", contents);
     
 
     //stream.write_all(&response_hello_world()).unwrap();
@@ -40,7 +40,7 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>){
         .collect();
 
 
-    println!("Recieved data from client: {:#?}", contents);
+    println!("Recieved data from client (fs): {:#?}", contents);
 
     let data = data_from_server_fs(parse_contents(contents));
 
@@ -52,7 +52,7 @@ fn data_from_server_fs(file: String) -> Vec<u8>{
     match read("../www/".to_owned() + &file) {
         Ok(f) => return f,
         Err(..) => {
-            println!("Error reading file");
+            println!("Error reading file (fs)");
             return "404".as_bytes().to_vec();
         },
     };
@@ -67,6 +67,6 @@ fn parse_contents(lines: Vec<String>) -> String {
             _other => {}
         };
     }
-    println!("{}",first_line);
+    println!("sent file (fs): {}",first_line);
     return first_line.clone()
 }
