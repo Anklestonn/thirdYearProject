@@ -3,6 +3,7 @@
 mod download;
 mod execute;
 
+use download::download;
 
 #[allow(unused_variables)]
 pub fn exec_order(order: Vec<String>) {
