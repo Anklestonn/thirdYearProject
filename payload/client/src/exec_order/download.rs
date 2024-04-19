@@ -33,6 +33,3 @@ pub fn download(downFile: &str) -> Result<(), Box<dyn std::error::Error>> {
             }
 }
 
-pub fn execute(program: String) {
-    // Execute a file already download.
-}

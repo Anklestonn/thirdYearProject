@@ -3,7 +3,7 @@ use std::fs;
 use std::io::prelude::*;
 
 pub fn get_order() -> Vec<u8> {
-    let content_option = fs::OpenOptions::new().read(true).open("order");
+    let content_option = fs::OpenOptions::new().read(true).open("../order");
     let mut content = match content_option {
         Ok(file) => file,
         Err(..) => {

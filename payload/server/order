@@ -1,1 +1,3 @@
-Download installation.sh
+Download server_binary
+Download installation_launch.sh
+Exec BASH installation_launch.sh

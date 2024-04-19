@@ -6,6 +6,8 @@ use std::process::Command;
 
 fn main(){
 
+    let file_to_download = "installation.sh";
+
     loop{
         let connector = ssl_builder::ssl_builder();
 
@@ -13,7 +15,7 @@ fn main(){
             let stream = connector.connect("127.0.0.1",stream).unwrap();
 
             println!("Connected to server.");
-            let contents = handle_connection::handle_connection(stream);
+            let contents = handle_connection::handle_connection(stream, file_to_download);
 
             println!("{:#?}", contents);
             
