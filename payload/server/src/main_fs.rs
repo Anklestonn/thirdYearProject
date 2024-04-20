@@ -13,7 +13,6 @@ pub fn file_share_server(acceptor: Arc<SslAcceptor>) {
     for stream in listener_file_share.incoming(){
         let stream = stream.unwrap();
         let acceptor = acceptor.clone();
-        //let data = data.clone();
 
 
         println!("Connection from client. (file_sharing)");

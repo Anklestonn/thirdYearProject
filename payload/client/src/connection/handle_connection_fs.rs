@@ -2,7 +2,9 @@
 use std::io::{BufReader, Write, Read};
 use std::net::TcpStream;
 use openssl::ssl::SslStream;
-use std::fs::File;
+
+use std::fs::OpenOptions;
+use std::os::unix::fs::OpenOptionsExt;
 
 
 pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &str) -> SslStream<TcpStream> {
@@ -25,8 +27,13 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &st
         };
         contents.append(&mut vec_bytes);
     }
+    
+    let file_result = OpenOptions::new()
+        .create(true)
+        .write(true)
+        .mode(0o755)
+        .open("../downloaded/".to_owned() + file_requests);
 
-    let file_result = File::create("../downloaded/".to_owned() + file_requests); 
     match file_result {
         Ok(mut file) => match file.write_all(&contents) {
                 Ok(_) => println!("Writing Ok"),

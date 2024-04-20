@@ -30,8 +30,6 @@ fn main() {
         let order = get_order::get_order(); // Get Vec<u8> corresponding at order's file. 'order'
                                         // should be put in the same directory as cargo run in
                                         // used.
-        //let order_copy = order.clone();
-
         thread::spawn(move || {
             let stream = acceptor.accept(stream).unwrap();
             handle_connection::handle_connection_cc(stream, order);
