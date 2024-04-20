@@ -33,7 +33,7 @@ pub fn get_to_exec(order: Vec<String>) -> Vec<binprog::Binprog> {
     // order correspond to a file contents,
     // each item of order correspond at one line.
     //
-    // If one line began by "download " add to the Vec returns the file name.
+    // If one line began by "exec " add to the Vec returns an object Binprog.
     //
     // Example contents an order file can be :
     // ```
