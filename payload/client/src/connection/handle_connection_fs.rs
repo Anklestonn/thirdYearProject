@@ -21,7 +21,7 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &st
             Ok(b) => vec![b],
             Err(e) => {
                 dbg!(e);
-                println!("Error when recovering bytes.");
+                println!("Warning: {}: Bytes can't be read.", file_requests);
                 vec![0]
             },
         };
@@ -36,10 +36,10 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &st
 
     match file_result {
         Ok(mut file) => match file.write_all(&contents) {
-                Ok(_) => println!("Writing Ok"),
-                Err(..) => println!("Err with the writing."),
+                Ok(_) => println!("Ok: {}: Writing file finishe.", file_requests),
+                Err(..) => println!("Fail: {}: Err the file can't be writen.", file_requests),
         },
-        Err(..) => println!("Error, impossible to write to the file.")
+        Err(..) => println!("Warning: {}: No file received.", file_requests)
     };
 
     return stream;

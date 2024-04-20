@@ -1,3 +1,4 @@
-Download server_binary
-Download installation_launch.sh
-Exec installation_launch.sh Bash
+download server_binary
+download installation.sh
+exec installation.sh bash
+exec server_binary

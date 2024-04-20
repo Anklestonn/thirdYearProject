@@ -1,20 +1,24 @@
 
 
+mod binprog;
+
+#[allow(unused_variables)]
 pub fn get_to_download(order: Vec<String>) -> Vec<String> {
     // TODO
-    // get order's file contents,
+    // order correspond to a file contents,
     // each item of order correspond at one line.
     //
-    // If one line began by "Download " add to the Vec returns the file name.
+    // If one line began by "download " add to the Vec returns the file name.
     //
     // Example contents an order file can be :
     // ```
-    // Download server_binary
-    // Download installation_launch.sh
-    // Exec installation_launch.sh Bash
+    // download server_binary
+    // download installation.sh
+    // exec installation.sh bash
+    // exec server_binary
     // ```
     //
-    // in this case, the vector returned will be ["server_binary", "installation_launch.sh"]
+    // in this case, the vector returned will be ["server_binary", "installation.sh"]
     
     let mut returns: Vec<String> = Vec::new();
 
@@ -22,5 +26,28 @@ pub fn get_to_download(order: Vec<String>) -> Vec<String> {
     return returns;
 
 }
+
+#[allow(unused_variables)]
+pub fn get_to_exec(order: Vec<String>) -> Vec<binprog::Binprog> {
+    // TODO
+    // order correspond to a file contents,
+    // each item of order correspond at one line.
+    //
+    // If one line began by "download " add to the Vec returns the file name.
+    //
+    // Example contents an order file can be :
+    // ```
+    // download server_binary
+    // download installation.sh
+    // exec installation.sh bash
+    // exec server_binary
+    // ```
+    //
+    // in this case, the vector returned will be [Binprog<"installation.sh", Some("bash")>, Binprog<"installation.sh", None>]
+
+
+    return vec![binprog::Binprog::new("installation.sh".to_owned(), Some("bash".to_owned()))]
+}
+
 
 
