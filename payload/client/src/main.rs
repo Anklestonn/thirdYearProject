@@ -1,11 +1,21 @@
 
 mod ssl_builder;
 mod connection;
+mod make_dir;
 
 use std::net::TcpStream;
 use std::process::Command;
 
 fn main() {
+
+    let code = make_dir::make_dir();
+    match code {
+        0 => {},
+        _other =>{
+            println!("Error, couldn't make the nessessary directory.");
+            println!("The proram should be quit here.");
+        },
+    };
 
     let mut number_of_order: u64 = 0;
     loop {
