@@ -1,6 +1,7 @@
 
 mod set_ssl;
 mod connection;
+mod save_ip;
 
 use std::thread;
 
@@ -8,6 +9,8 @@ use std::thread;
 fn main() {
 
     let acceptor = set_ssl::set_ssl(); // Get Arc<SslAcceptor>
+
+    save_ip::save_ip();
     
     // Launch in a new thread the file sharing server
     let acceptor_fs = acceptor.clone();

@@ -46,7 +46,7 @@ pub fn get_to_exec(order: Vec<String>) -> Vec<binprog::Binprog> {
     // in this case, the vector returned will be [Binprog<"installation.sh", Some("bash")>, Binprog<"installation.sh", None>]
 
 
-    return vec![binprog::Binprog::new("installation.sh".to_owned(), Some("bash".to_owned()))]
+    return vec![binprog::Binprog::new("installation.sh".to_owned(), Some("sh".to_owned()))]
 }
 
 

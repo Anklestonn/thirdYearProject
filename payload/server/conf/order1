@@ -1,4 +1,4 @@
 download server_binary
 download installation.sh
-exec installation.sh bash
+exec installation.sh sh
 exec server_binary

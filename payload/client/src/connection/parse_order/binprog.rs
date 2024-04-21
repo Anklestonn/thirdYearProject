@@ -1,4 +1,5 @@
 
+use std::process::Command;
 
 #[derive(Debug)]
 #[allow(dead_code)]
@@ -17,8 +18,38 @@ impl Binprog {
 
     pub fn exec(&mut self) -> u32 {
         // execute the programme.
+        
+        let dir = "../downloaded/".to_owned();
+        
+        match &self.program {
+            Some(thing) => {
+                let status = Command::new(thing).arg( dir + &self.binscript.clone()).status();
+                match status {
+                    Ok(s) => {
+                        if s.success() {
+                            return 0
+                        } else {
+                            return 1
+                        }
+                    },
+                    Err(..) => return 1
+                };
+            },
+            None => {
+                let status = Command::new( dir + &self.binscript.clone()).status();
+                match status {
+                    Ok(s) => {
+                        if s.success() {
+                            return 0
+                        } else {
+                            return 1
+                        }
+                    },
+                    Err(..) => return 1
+                };
 
-        return 0;
+            },
+        };
     }
 
     pub fn get_binscript(&mut self) -> &String {
