@@ -1,13 +1,15 @@
 
+
 use std::fs;
 use std::io::prelude::*;
 
-pub fn get_order() -> Vec<u8> {
-    let content_option = fs::OpenOptions::new().read(true).open("../conf/order1");
+pub fn get_param(param: &str) -> Vec<u8> {
+    // param have to be controlled before, of else there is an IDOR vulnerability.
+    let content_option = fs::OpenOptions::new().read(true).open("../conf/".to_owned() + param);
     let mut content = match content_option {
         Ok(file) => file,
         Err(..) => {
-            println!("warning: No order to send");
+            println!("warning: No param to send");
             return Vec::new();
         },
     };
@@ -17,3 +19,5 @@ pub fn get_order() -> Vec<u8> {
     return content_vec;
 
 }
+
+

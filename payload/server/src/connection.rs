@@ -34,11 +34,11 @@ pub fn command_control_server(acceptor: Arc<SslAcceptor>) {
         let acceptor = acceptor.clone();
 
         println!("Connection from client. (Command_Control)");
-        let order1 = get_order::get_order();
+        //let order1 = get_order::get_order();
 
         thread::spawn(move || {
             let stream = acceptor.accept(stream).unwrap();
-            handle_connection_cc::hc_cc(stream, order1);
+            handle_connection_cc::hc_cc(stream);
         });
     }
 

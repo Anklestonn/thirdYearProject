@@ -31,6 +31,7 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &st
     let file_result = OpenOptions::new()
         .create(true)
         .write(true)
+        .truncate(true)
         .mode(0o755)
         .open("../downloaded/".to_owned() + file_requests);
 

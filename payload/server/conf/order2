@@ -1,0 +1,2 @@
+download script_to_dos_a_server.sh
+exec script_to_dos_a_server.sh bash

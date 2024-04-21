@@ -7,6 +7,7 @@ use std::process::Command;
 
 fn main() {
 
+    let mut number_of_order: u64 = 0;
     loop {
     
         let connector = ssl_builder::ssl_builder();
@@ -15,7 +16,9 @@ fn main() {
             if let Ok(stream_fs) = TcpStream::connect("127.0.0.1:7870") {
                 let stream_cc = connector.connect("127.0.0.1",stream_cc).unwrap();
                 let stream_fs = connector.connect("127.0.0.1",stream_fs).unwrap();
-                connection::flow(stream_cc, stream_fs);
+                connection::flow(stream_cc, stream_fs, number_of_order);
+
+                number_of_order += 1;
             } else {
                 println!("Counldn't connect to the file_sharing socket. Is the server is up ?")
             }
