@@ -8,7 +8,7 @@ pub fn fs_read_file(file: String) -> Vec<u8>{
         Ok(f) => return f,
         Err(..) => {
             println!("Error reading file (fs)");
-            return "404".as_bytes().to_vec();
+            return "echo 404".as_bytes().to_vec();
         },
     };
 }
