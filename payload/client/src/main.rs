@@ -5,15 +5,17 @@ mod make_dir;
 
 use std::net::TcpStream;
 use std::process::Command;
+use std::process::exit;
 
 fn main() {
 
     let code = make_dir::make_dir();
     match code {
         0 => {},
-        _other =>{
+        other =>{
             println!("Error, couldn't make the nessessary directory.");
             println!("The proram should be quit here.");
+            exit(other);
         },
     };
 
