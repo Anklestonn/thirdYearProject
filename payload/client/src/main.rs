@@ -11,7 +11,7 @@ use std::process::exit;
 
 fn main() {
 
-    let (ip_addr, fs_sock_addr, cc_sock_addr) = args::get_args();
+    let Ok((ip_addr, fs_sock_addr, cc_sock_addr)) = args::get_args() else{return };
 
 
 

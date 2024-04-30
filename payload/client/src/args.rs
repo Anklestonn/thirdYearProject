@@ -4,7 +4,7 @@ use std::string::String;
 use std::fs::File;
 use std::io::Read;
 
-pub fn get_args()-> Result<(IpAddr, SocketAddr, SocketAddr),&'static str>{
+pub fn get_args()-> Result<(IpAddr, SocketAddr, SocketAddr),std::io::Error>{
     let args: Vec<String> = args().collect();
 
     if args.len() == 0{
