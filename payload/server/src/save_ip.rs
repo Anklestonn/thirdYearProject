@@ -5,7 +5,7 @@ use std::os::unix::fs::OpenOptionsExt;
 use std::io::Write;
 
 
-pub fn save_ip() {
+pub fn save_ip() -> String{
 
     let my_local_ip_raw = local_ip().unwrap();
 
@@ -16,7 +16,7 @@ pub fn save_ip() {
         .write(true)
         .truncate(true)
         .mode(0o600)
-        .open("../conf/".to_owned() + "ip_addr");
+        .open("../www/".to_owned() + "ip_addr");
 
     match file_result {
         Ok(mut file) => match file.write_all(my_local_ip.as_bytes()) {
@@ -25,5 +25,8 @@ pub fn save_ip() {
         },
         Err(..) => println!("Warning: {}: No file received.", my_local_ip)
     };
+
+
+    return my_local_ip.clone();
 
 }
