@@ -26,7 +26,7 @@ case "$1" in
         unshare --user --map-root-user --net --mount
         ;;
     "internet")
-        rootlesskit --net=slirp4netns --copy-up=/etc bash
+        rootlesskit --disable-host-loopback --net=slirp4netns --copy-up=/etc bash
         ;;
     "install")
 	    if [ $# -eq 2 ]
