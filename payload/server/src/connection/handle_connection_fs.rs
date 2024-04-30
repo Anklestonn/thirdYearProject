@@ -1,12 +1,14 @@
 
 mod misc;
 
-use openssl::ssl::SslStream;
+use rustls::Stream;
 use std::net::TcpStream;
+use rustls::server::ServerConnection;
 use std::io::{BufReader,BufRead,Write};
 
 
-pub fn hc_fs(mut stream: SslStream<TcpStream>){
+pub fn hc_fs(mut stream: Stream<'_, ServerConnection, TcpStream>){
+
     let buf_reader = BufReader::new(&mut stream);
     let contents: Vec <_> = buf_reader
         .lines()
