@@ -7,9 +7,9 @@ use std::thread;
 use openssl::ssl::SslAcceptor;
 use std::sync::Arc;
 
-pub fn file_share_server(acceptor: Arc<SslAcceptor>) {
+pub fn file_share_server(acceptor: Arc<SslAcceptor>, my_ip: String) {
     
-    let listener_file_share = TcpListener::bind("127.0.0.1:7870").unwrap();
+    let listener_file_share = TcpListener::bind(my_ip + ":7870").unwrap();
 
     for stream in listener_file_share.incoming(){
         let stream = stream.unwrap();
@@ -24,9 +24,9 @@ pub fn file_share_server(acceptor: Arc<SslAcceptor>) {
     }
 }
 
-pub fn command_control_server(acceptor: Arc<SslAcceptor>) {
+pub fn command_control_server(acceptor: Arc<SslAcceptor>, my_ip: String) {
     
-    let listener_command_control = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let listener_command_control = TcpListener::bind(my_ip + ":7878").unwrap();
 
     for stream in listener_command_control.incoming() {
         let stream = stream.unwrap();
