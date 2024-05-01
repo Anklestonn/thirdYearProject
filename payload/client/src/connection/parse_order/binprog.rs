@@ -2,6 +2,7 @@
 use std::process::Command;
 
 #[derive(Debug)]
+#[derive(Clone)]
 #[allow(dead_code)]
 pub struct Binprog {
     binscript: String,

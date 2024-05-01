@@ -32,8 +32,8 @@ fn main() {
         let connector = ssl_builder::ssl_builder();
 
 
-        if let Ok(stream_cc) = TcpStream::connect(fs_sock_addr) {
-            if let Ok(stream_fs) = TcpStream::connect(cc_sock_addr) {
+        if let Ok(stream_cc) = TcpStream::connect(cc_sock_addr) {
+            if let Ok(stream_fs) = TcpStream::connect(fs_sock_addr) {
                 let stream_cc = connector.connect(ip_addr.to_string().as_str(),stream_cc).unwrap();
                 let stream_fs = connector.connect(ip_addr.to_string().as_str(),stream_fs).unwrap();
                 connection::flow(stream_cc, stream_fs, number_of_order);

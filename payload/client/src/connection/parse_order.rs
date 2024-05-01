@@ -2,9 +2,7 @@
 
 mod binprog;
 
-//#[allow(unused_variables)]
 pub fn get_to_download(order: Vec<String>) -> Vec<String> {
-    // TODO
     // creating vector to store file names in download
     let mut downloads: Vec<String> = Vec::new();
 
@@ -24,14 +22,12 @@ pub fn get_to_download(order: Vec<String>) -> Vec<String> {
 
     //let mut returns: Vec<String> = Vec::new();
 
-    //returns.append(&mut vec!["installation.sh".to_owned()]); // TODO: Replace this line by the real code.
+    //returns.append(&mut vec!["installation.sh".to_owned()]);
     //return returns;
 
 
 
-//#[allow(unused_variables)]
 pub fn get_to_exec(order: Vec<String>) -> Vec<binprog::Binprog> {
-    // TODO
     //vector to store binprog objects
     let mut execs: Vec<binprog::Binprog> = Vec::new();
 
