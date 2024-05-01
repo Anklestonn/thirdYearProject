@@ -33,15 +33,10 @@ fn main() {
 
 
         if let Ok(stream_cc) = TcpStream::connect(cc_sock_addr) {
-            if let Ok(stream_fs) = TcpStream::connect(fs_sock_addr) {
-                let stream_cc = connector.connect(ip_addr.to_string().as_str(),stream_cc).unwrap();
-                let stream_fs = connector.connect(ip_addr.to_string().as_str(),stream_fs).unwrap();
-                connection::flow(stream_cc, stream_fs, number_of_order);
+            let stream_cc = connector.connect(ip_addr.to_string().as_str(),stream_cc).unwrap();
+            connection::flow(stream_cc, ip_addr.to_string(), fs_sock_addr, connector, number_of_order);
 
-                number_of_order += 1;
-            } else {
-                println!("Counldn't connect to the file_sharing socket. Is the server is up ?")
-            }
+            number_of_order += 1;
         } else {
             println!("Couldn't connect to the cc socket. Is the server is up ?");
         }
