@@ -32,7 +32,6 @@ fn main() {
         let connector = ssl_builder::ssl_builder();
 
 
-        println!("{:?}",cc_sock_addr);
         if let Ok(stream_cc) = TcpStream::connect(cc_sock_addr) {
             if let Ok(stream_fs) = TcpStream::connect(fs_sock_addr) {
                 let stream_cc = connector.connect(ip_addr.to_string().as_str(),stream_cc).unwrap();

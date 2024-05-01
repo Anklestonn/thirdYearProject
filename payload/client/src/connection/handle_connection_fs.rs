@@ -16,7 +16,9 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &st
     
     let mut contents: Vec<u8> = Vec::new();
 
-    for byte in BufReader::new(&mut stream).bytes() {
+    stream.read_to_end(&mut contents).unwrap();
+
+    /*for byte in BufReader::new(&mut stream).bytes() {
         let mut vec_bytes = match byte {
             Ok(b) => vec![b],
             Err(e) => {
@@ -26,7 +28,7 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &st
             },
         };
         contents.append(&mut vec_bytes);
-    }
+    }*/
     
     let file_result = OpenOptions::new()
         .create(true)

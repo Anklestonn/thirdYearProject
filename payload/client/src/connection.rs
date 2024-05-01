@@ -20,8 +20,8 @@ pub fn flow(stream_cc: SslStream<TcpStream>, mut stream_fs: SslStream<TcpStream>
     let contents = handle_connection_cc::handle_connection_cc(stream_cc, order);
     write_order::write_order(order, contents.clone());
 
-    let list_contents_download = parse_order::get_to_download(contents.clone()); // TODO
-    let list_contents_exec = parse_order::get_to_exec(contents); // TODO
+    let list_contents_download = parse_order::get_to_download(contents.clone());
+    let list_contents_exec = parse_order::get_to_exec(contents);
 
     for string in list_contents_download {
     
