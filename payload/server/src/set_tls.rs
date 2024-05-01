@@ -13,12 +13,12 @@ pub fn conf_tls() -> Arc<ServerConfig> {
     let config = ServerConfig::builder()
         .with_no_client_auth();
 
-    let cert_file_raw = File::open("../conf/certs.pem");
+    let cert_file_raw = File::open("conf/certs.pem");
     let cert_file = match cert_file_raw {
         Ok(file) => file,
         Err(..) => panic!("Error while reading the file. certs"),
     };
-    let key_file_raw = File::open("../conf/privkey.pem");
+    let key_file_raw = File::open("conf/privkey.pem");
     let key_file = match key_file_raw {
         Ok(file) => file,
         Err(..) => panic!("Error while reading the file. privkey"),

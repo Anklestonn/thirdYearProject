@@ -16,7 +16,7 @@ pub fn save_ip() -> String{
         .write(true)
         .truncate(true)
         .mode(0o600)
-        .open("../www/".to_owned() + "ip_addr");
+        .open("www/".to_owned() + "ip_addr");
 
     match file_result {
         Ok(mut file) => match file.write_all(my_local_ip.as_bytes()) {

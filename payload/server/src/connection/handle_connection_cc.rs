@@ -6,6 +6,7 @@ use rustls::Stream;
 use std::net::TcpStream;
 use std::io::{BufReader,BufRead,Write};
 
+//use std::io::Read;
 
 pub fn hc_cc(mut stream: Stream<'_, ServerConnection, TcpStream>) {
 

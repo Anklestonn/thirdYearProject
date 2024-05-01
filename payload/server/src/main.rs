@@ -2,11 +2,13 @@
 mod set_tls;
 mod connection;
 mod save_ip;
+mod set_dir;
 
 use std::thread;
 
-
 fn main() {
+
+    set_dir::set_working_directory();
 
     let acceptor = set_tls::conf_tls();
 
