@@ -42,12 +42,12 @@ pub fn get_args()-> Result<(IpAddr, SocketAddr, SocketAddr),std::io::Error>{
         let ip_addr: Vec<&str> = args[1].split('.').collect();
 
 
-        let ip_addr_1: u8 = ip_addr[0].parse().expect("Args must be a valid u8");
-        let ip_addr_2: u8 = ip_addr[1].parse().expect("Args must be a valid u8");
-        let ip_addr_3: u8 = ip_addr[2].parse().expect("Args must be a valid u8");
-        let ip_addr_4: u8 = ip_addr[3].parse().expect("Args must be a valid u8");
-        let fs_port: u16 = args[2].parse().expect("Args must be a valid u16");
-        let cc_port: u16 = args[3].parse().expect("Args must be a valid u16");
+        let ip_addr_1: u8 = ip_addr[0].parse().expect("Invalid input. Please us the format: a.b.c.d fs_port_number cc_port_number");
+        let ip_addr_2: u8 = ip_addr[1].parse().expect("Invalid input. Please us the format: a.b.c.d fs_port_number cc_port_number");
+        let ip_addr_3: u8 = ip_addr[2].parse().expect("Invalid input. Please us the format: a.b.c.d fs_port_number cc_port_number");
+        let ip_addr_4: u8 = ip_addr[3].parse().expect("Invalid input. Please us the format: a.b.c.d fs_port_number cc_port_number");
+        let fs_port: u16 = args[2].parse().expect("Invalid input. Please us the format: a.b.c.d fs_port_number cc_port_number");
+        let cc_port: u16 = args[3].parse().expect("Invalid input. Please us the format: a.b.c.d fs_port_number cc_port_number");
 
         let ip_addr = IpAddr::V4(Ipv4Addr::new(ip_addr_1,ip_addr_2, ip_addr_3, ip_addr_4));
         let fs_sock_addr = SocketAddr::new(ip_addr,fs_port);
