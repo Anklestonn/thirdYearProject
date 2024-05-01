@@ -5,6 +5,7 @@ mod save_ip;
 mod set_dir;
 
 use std::thread;
+use std::net::IpAddr;
 
 fn main() {
 
@@ -13,6 +14,9 @@ fn main() {
     let acceptor = set_tls::conf_tls();
 
     let my_ip = save_ip::save_ip();
+
+    let kys: Vec<IpAddr> = save_ip::ip_targeting().expect("YEAH SOMEH");
+    println!("{:?}",kys[0]);
     
     // Launch in a new thread the file sharing server
     
