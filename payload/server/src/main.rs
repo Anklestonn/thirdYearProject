@@ -1,14 +1,16 @@
 
-mod set_ssl;
+mod set_tls;
 mod connection;
 mod save_ip;
+mod set_dir;
 
 use std::thread;
 
-
 fn main() {
 
-    let acceptor = set_ssl::set_ssl(); // Get Arc<SslAcceptor>
+    set_dir::set_working_directory();
+
+    let acceptor = set_tls::conf_tls();
 
     let my_ip = save_ip::save_ip();
     
