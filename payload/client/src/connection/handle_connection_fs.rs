@@ -1,5 +1,5 @@
 
-use std::io::{BufReader, Write, Read};
+use std::io::{Write, Read};
 use std::net::TcpStream;
 use openssl::ssl::SslStream;
 
@@ -7,7 +7,7 @@ use std::fs::OpenOptions;
 use std::os::unix::fs::OpenOptionsExt;
 
 
-pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &str) -> SslStream<TcpStream> {
+pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &str) {
     let message = file_requests.to_owned() + "\r\n\r\n";
 
     stream.write_all(message.as_bytes()).unwrap();
@@ -18,17 +18,6 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &st
 
     stream.read_to_end(&mut contents).unwrap();
 
-    /*for byte in BufReader::new(&mut stream).bytes() {
-        let mut vec_bytes = match byte {
-            Ok(b) => vec![b],
-            Err(e) => {
-                dbg!(e);
-                println!("Warning: {}: Bytes can't be read.", file_requests);
-                vec![0]
-            },
-        };
-        contents.append(&mut vec_bytes);
-    }*/
     
     let file_result = OpenOptions::new()
         .create(true)
@@ -44,7 +33,5 @@ pub fn handle_connection_fs(mut stream: SslStream<TcpStream>, file_requests: &st
         },
         Err(..) => println!("Warning: {}: No file received.", file_requests)
     };
-
-    return stream;
 
 }
