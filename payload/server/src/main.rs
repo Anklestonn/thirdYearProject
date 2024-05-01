@@ -1,25 +1,29 @@
 
-mod set_ssl;
+mod set_tls;
 mod connection;
 mod save_ip;
+mod set_dir;
 
 use std::thread;
 
-
 fn main() {
 
-    let acceptor = set_ssl::set_ssl(); // Get Arc<SslAcceptor>
+    set_dir::set_working_directory();
 
-    save_ip::save_ip();
+    let acceptor = set_tls::conf_tls();
+
+    let my_ip = save_ip::save_ip();
     
     // Launch in a new thread the file sharing server
+    
+    let my_ip_fs = my_ip.clone();
     let acceptor_fs = acceptor.clone();
     thread::spawn(move || { // lauch file_share_server
-        connection::file_share_server(acceptor_fs);
+        connection::file_share_server(acceptor_fs, my_ip_fs);
     });
 
     // launch the Command an Control server.
-    connection::command_control_server(acceptor);
+    connection::command_control_server(acceptor, my_ip);
 
 }
 

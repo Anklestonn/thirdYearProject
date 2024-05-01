@@ -2,12 +2,19 @@
 mod ssl_builder;
 mod connection;
 mod make_dir;
+mod args;
 
 use std::net::TcpStream;
 use std::process::Command;
 use std::process::exit;
 
+
 fn main() {
+
+    let (ip_addr, fs_sock_addr, cc_sock_addr) = args::get_args();
+
+
+
 
     let code = make_dir::make_dir();
     match code {
@@ -23,11 +30,12 @@ fn main() {
     loop {
     
         let connector = ssl_builder::ssl_builder();
-        
-        if let Ok(stream_cc) = TcpStream::connect("127.0.0.1:7878") {
-            if let Ok(stream_fs) = TcpStream::connect("127.0.0.1:7870") {
-                let stream_cc = connector.connect("127.0.0.1",stream_cc).unwrap();
-                let stream_fs = connector.connect("127.0.0.1",stream_fs).unwrap();
+
+
+        if let Ok(stream_cc) = TcpStream::connect(fs_sock_addr) {
+            if let Ok(stream_fs) = TcpStream::connect(cc_sock_addr) {
+                let stream_cc = connector.connect(ip_addr.to_string().as_str(),stream_cc).unwrap();
+                let stream_fs = connector.connect(ip_addr.to_string().as_str(),stream_fs).unwrap();
                 connection::flow(stream_cc, stream_fs, number_of_order);
 
                 number_of_order += 1;

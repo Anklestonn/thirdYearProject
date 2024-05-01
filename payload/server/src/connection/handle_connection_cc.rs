@@ -1,11 +1,15 @@
 
 mod misc;
 
-use openssl::ssl::SslStream;
+use rustls::server::ServerConnection;
+use rustls::Stream;
 use std::net::TcpStream;
 use std::io::{BufReader,BufRead,Write};
 
-pub fn hc_cc(mut stream: SslStream<TcpStream>) {
+//use std::io::Read;
+
+pub fn hc_cc(mut stream: Stream<'_, ServerConnection, TcpStream>) {
+
     let buf_reader = BufReader::new(&mut stream);
     let contents: Vec <_> = buf_reader
         .lines()
@@ -17,7 +21,7 @@ pub fn hc_cc(mut stream: SslStream<TcpStream>) {
 
     let order_raw = match contents.first() {
         Some(string) => string,
-        None => "order1.to_owned",
+        None => "order1",
     };
     let order;
     if order_raw == "order2" {
