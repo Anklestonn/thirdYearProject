@@ -6,9 +6,9 @@ pub fn make_dir() -> i32 {
     // check if directory ../www, ../downloaded, ../conf exists, if no, create them. 
 
     let mut exit_code = 0;
-    exit_code += create_a_dir("../www");
-    exit_code += create_a_dir("../downloaded");
-    exit_code += create_a_dir("../conf");
+    exit_code += create_a_dir("www");
+    exit_code += create_a_dir("downloaded");
+    exit_code += create_a_dir("conf");
 
     return exit_code;
 }

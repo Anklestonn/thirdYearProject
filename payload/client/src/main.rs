@@ -2,6 +2,7 @@
 mod ssl_builder;
 mod connection;
 mod make_dir;
+mod set_dir;
 mod args;
 
 use std::net::TcpStream;
@@ -11,9 +12,10 @@ use std::process::exit;
 
 fn main() {
 
+    
+    set_dir::set_working_directory();
+
     let Ok((ip_addr, fs_sock_addr, cc_sock_addr)) = args::get_args() else{return };
-
-
 
 
     let code = make_dir::make_dir();

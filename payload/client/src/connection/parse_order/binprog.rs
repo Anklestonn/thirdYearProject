@@ -20,7 +20,7 @@ impl Binprog {
     pub fn exec(&mut self) -> u32 {
         // execute the programme.
         
-        let dir = "../downloaded/".to_owned();
+        let dir = "downloaded/".to_owned();
         
         match &self.program {
             Some(thing) => {
