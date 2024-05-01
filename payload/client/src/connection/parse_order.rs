@@ -2,7 +2,7 @@
 
 mod binprog;
 
-#[allow(unused_variables)]
+//#[allow(unused_variables)]
 pub fn get_to_download(order: Vec<String>) -> Vec<String> {
     // TODO
     // creating vector to store file names in download
@@ -27,9 +27,9 @@ pub fn get_to_download(order: Vec<String>) -> Vec<String> {
     //returns.append(&mut vec!["installation.sh".to_owned()]); // TODO: Replace this line by the real code.
     //return returns;
 
-}
 
-#[allow(unused_variables)]
+
+//#[allow(unused_variables)]
 pub fn get_to_exec(order: Vec<String>) -> Vec<binprog::Binprog> {
     // TODO
     //vector to store binprog objects
@@ -58,7 +58,4 @@ pub fn get_to_exec(order: Vec<String>) -> Vec<binprog::Binprog> {
 
 
     //return vec![binprog::Binprog::new("installation.sh".to_owned(), Some("sh".to_owned()))]
-}
-
-
 
