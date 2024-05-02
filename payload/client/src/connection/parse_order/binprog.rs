@@ -52,7 +52,7 @@ impl Binprog {
             },
         };
     }
-
+    #[allow(dead_code)]
     pub fn get_binscript(&mut self) -> &String {
         &self.binscript
     }

@@ -12,7 +12,7 @@ pub fn write_order(order_name: &str, contents_vec: Vec<String>) -> u32{
     let order_option = fs::OpenOptions::new().write(true).create(true).truncate(true).open("downloaded/".to_owned() + order_name);
     let mut order = match order_option {
         Ok(file) => file,
-        Err(error) => {
+        Err(_error) => {
             //dbg!(error);
             //println!("impossible to write contents");
             return 1;
