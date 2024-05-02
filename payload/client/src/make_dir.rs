@@ -21,7 +21,7 @@ fn create_a_dir(dir: &str) -> i32 {
             if ee.kind() == ErrorKind::AlreadyExists {
                 return 0
             } else {
-                println!("fail: {}", ee.kind());
+                //println!("fail: {}", ee.kind());
                 return 1;
             }
         },

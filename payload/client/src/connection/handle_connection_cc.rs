@@ -10,7 +10,7 @@ pub fn handle_connection_cc(mut stream: SslStream<TcpStream>, order_name: &str) 
 
 
     stream.write_all(message.as_bytes()).unwrap();
-    println!("Send: (cc) {:#?}", message.lines().collect::<Vec<_>>());
+    //println!("Send: (cc) {:#?}", message.lines().collect::<Vec<_>>());
 
     let contents: Vec <_> = BufReader::new(&mut stream)
         .lines()
@@ -18,7 +18,7 @@ pub fn handle_connection_cc(mut stream: SslStream<TcpStream>, order_name: &str) 
         .take_while(|line| !line.is_empty())
         .collect();
 
-    println!("Received: (cc) {:#?}", contents);
+    //println!("Received: (cc) {:#?}", contents);
     return contents;
 
 }

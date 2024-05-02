@@ -22,8 +22,8 @@ fn main() {
     match code {
         0 => {},
         other =>{
-            println!("Error, couldn't make the nessessary directory.");
-            println!("The proram should be quit here.");
+            //println!("Error, couldn't make the nessessary directory.");
+            //println!("The proram should be quit here.");
             exit(other);
         },
     };
@@ -40,7 +40,7 @@ fn main() {
 
             number_of_order += 1;
         } else {
-            println!("Couldn't connect to the cc socket. Is the server is up ?");
+            //println!("Couldn't connect to the cc socket. Is the server is up ?");
         }
 
         let _ = Command::new("sleep")

@@ -13,8 +13,8 @@ pub fn write_order(order_name: &str, contents_vec: Vec<String>) -> u32{
     let mut order = match order_option {
         Ok(file) => file,
         Err(error) => {
-            dbg!(error);
-            println!("impossible to write contents");
+            //dbg!(error);
+            //println!("impossible to write contents");
             return 1;
         },
     };

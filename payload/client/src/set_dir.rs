@@ -13,9 +13,9 @@ pub fn set_working_directory() {
     };
     let path = Path::new(&prog_path).parent().unwrap();
     if ! set_current_dir(path).is_ok() {
-        println!("Error setting the path");
+        //println!("Error setting the path");
         exit(1);
     }
-    println!("prog launched at: {}", prog_path);
+    //println!("prog launched at: {}", prog_path);
 }
 

