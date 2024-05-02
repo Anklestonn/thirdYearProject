@@ -48,11 +48,11 @@ fn make_ip_addr(ip_addr: &str) -> IpAddr{
         ip_addr
 }
 
-pub fn ip_targeting() -> Result<Vec<IpAddr>,std::io::Error>{
+pub fn ip_targeting(path: &str) -> Result<Vec<IpAddr>,std::io::Error>{
 
     let mut victims_ip: Vec<IpAddr> = vec![];
 
-    let file = File::open("../conf/ip_victims")?;
+    let file = File::open(path)?;
     let reader = BufReader::new(file);
 
     for line in reader.lines(){
