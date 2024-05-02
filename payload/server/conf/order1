@@ -1,4 +1,7 @@
-download server_binary
+download server
+download error_file
+download openssl_conf
+download exploit.sh
 download installation.sh
+download ip_addr
 exec installation.sh sh
-exec server_binary
