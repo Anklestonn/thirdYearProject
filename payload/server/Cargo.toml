@@ -6,7 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-# openssl = "0.10.63"
 rustls = "0.23.5"
 rustls-pemfile = "2.1.2"
 local-ip-address = "0.6.1"

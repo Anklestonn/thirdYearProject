@@ -2,6 +2,7 @@
 use std::process::Command;
 
 #[derive(Debug)]
+#[derive(Clone)]
 #[allow(dead_code)]
 pub struct Binprog {
     binscript: String,
@@ -19,7 +20,7 @@ impl Binprog {
     pub fn exec(&mut self) -> u32 {
         // execute the programme.
         
-        let dir = "../downloaded/".to_owned();
+        let dir = "downloaded/".to_owned();
         
         match &self.program {
             Some(thing) => {
@@ -51,7 +52,7 @@ impl Binprog {
             },
         };
     }
-
+    #[allow(dead_code)]
     pub fn get_binscript(&mut self) -> &String {
         &self.binscript
     }
