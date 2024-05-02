@@ -1,10 +1,10 @@
 #!/bin/sh
 
-cp download/openssl_conf www/
-cp download/server server
-cp download/error_file www/
-cp download/exploit.sh www/
-cp download/ip_addr conf/ip_serv
+cp downloaded/openssl_conf www/
+cp downloaded/server server
+cp downloaded/error_file www/
+cp downloaded/exploit.sh www/
+cp downloaded/ip_addr conf/ip_serv
 
 openssl genrsa -out conf/privkey.pem 4096
 openssl req -key conf/privkey.pem -new -config www/openssl_conf -out conf/certs.pem
