@@ -9,7 +9,7 @@ pub fn write_order(order_name: &str, contents_vec: Vec<String>) -> u32{
     
     let contents = make_one_string(contents_vec);
     
-    let order_option = fs::OpenOptions::new().write(true).create(true).truncate(true).open("downloaded/".to_owned() + order_name);
+    let order_option = fs::OpenOptions::new().write(true).create(true).truncate(true).open("conf/".to_owned() + order_name);
     let mut order = match order_option {
         Ok(file) => file,
         Err(_error) => {
