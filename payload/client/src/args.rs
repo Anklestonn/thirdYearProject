@@ -4,6 +4,8 @@ use std::string::String;
 use std::fs::File;
 use std::io::Read;
 
+
+
 #[allow(dead_code)]
 fn print_type_of<T>(_: &T) {
     println!("{}", std::any::type_name::<T>())
@@ -22,17 +24,20 @@ pub fn get_args()-> Result<(IpAddr, SocketAddr, SocketAddr),std::io::Error>{
         let ip_vector: Vec<&str> = vector[0].split('.').collect();
 
 
-        let ip_addr_1: u8 = ip_vector[0].parse().expect("Conf file error");
-        let ip_addr_2: u8 = ip_vector[1].parse().expect("Conf file error");
-        let ip_addr_3: u8 = ip_vector[2].parse().expect("Conf file error");
-        let ip_addr_4: u8 = ip_vector[3].parse().expect("Conf file error");
+        let ip_addr_1: u8 = ip_vector[0].parse().expect("Please use a valid u8");
+        let ip_addr_2: u8 = ip_vector[1].parse().expect("Please use a valid u8");
+        let ip_addr_3: u8 = ip_vector[2].parse().expect("Please use a valid u8");
+        let ip_addr_4: u8 = ip_vector[3].parse().expect("Please use a valid u8");
+
+
+        let ip_addr = IpAddr::V4(Ipv4Addr::new(ip_addr_1,ip_addr_2, ip_addr_3, ip_addr_4));
+
 
         let fs_port: u16 = vector[1].parse().expect("Conf file error");
         let cc_port: u16 = vector[2].trim().parse().expect("Conf file error");
 
 
 
-        let ip_addr = IpAddr::V4(Ipv4Addr::new(ip_addr_1,ip_addr_2, ip_addr_3, ip_addr_4));
         let fs_sock_addr = SocketAddr::new(ip_addr, fs_port);
         let cc_sock_addr = SocketAddr::new(ip_addr, cc_port);
 
