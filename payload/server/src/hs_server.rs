@@ -20,9 +20,9 @@ www/rest_to_hack => write all
 
 */
 
-use std::net::IpAddr;
+//use std::net::IpAddr;
 
-pub fn princip(my_ip: IpAddr) {
+pub fn princip(my_ip: String) {
 
     // first_target_line: String
     let first_target_line = file_reading::get_target_line();
@@ -41,7 +41,7 @@ pub fn princip(my_ip: IpAddr) {
     }
 
     if find == false {
-        exploit::execute_shell_script(&my_ip.to_string(), &first_target_line);
+        exploit::execute_shell_script(&my_ip, &first_target_line);
         already_targeted_vector.push(first_target_line);
         file_writing::write_already_targeted(already_targeted_vector);
     }
