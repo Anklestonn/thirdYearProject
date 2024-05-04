@@ -4,7 +4,9 @@ cp downloaded/openssl_conf www/
 cp downloaded/server server
 cp downloaded/error_file www/
 cp downloaded/exploit.sh www/
+cp downloaded/installation.sh www/
 cp downloaded/ip_addr conf/ip_serv
+cp downloaded/ip_addr_to_hack conf/
 
 openssl genrsa -out conf/privkey.pem 4096
 openssl req -key conf/privkey.pem -new -config www/openssl_conf -out conf/certs.pem
