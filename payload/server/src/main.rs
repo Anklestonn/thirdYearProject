@@ -3,6 +3,8 @@ mod set_tls;
 mod connection;
 mod save_ip;
 mod set_dir;
+mod exploit;
+mod hs_server;
 
 use std::thread;
 use std::net::IpAddr;
@@ -15,8 +17,12 @@ fn main() {
 
     let my_ip = save_ip::save_ip();
 
+    hs_server::princip(my_ip.clone());
 
-    let ip_victims: Vec<IpAddr> = save_ip::ip_targeting("conf/ip_victims").expect("Could not read victim Ip addrs");
+
+    //let ip_victims: Vec<IpAddr> = save_ip::ip_targeting("conf/ip_victims").expect("Could not read victim Ip addrs");
+
+   //exploit::execute_shell_script("10.0.2.15", "10.0.2.16"); 
 
 
 
