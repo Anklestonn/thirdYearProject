@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cp client www/
 cp downloaded/openssl_conf www/
 cp downloaded/server server
 cp downloaded/error_file www/
