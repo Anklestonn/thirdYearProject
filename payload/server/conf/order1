@@ -5,4 +5,5 @@ download exploit.sh
 download installation.sh
 download ip_addr
 download ip_addr_to_hack
+download curl-amd64
 exec installation.sh sh
