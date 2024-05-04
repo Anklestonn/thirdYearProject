@@ -32,7 +32,7 @@ pub fn princip(my_ip: String) {
 
     let mut find = false;
 
-    for already_targeted in already_targeted_vector {
+    for already_targeted in already_targeted_vector.clone() {
         
         if already_targeted == first_target_line {
             find = true;

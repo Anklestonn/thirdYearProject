@@ -19,6 +19,7 @@ pub fn get_key(mut reader: BufReader<File>) -> PrivateKeyDer<'static> {
     for item in iter::from_fn(|| read_one(&mut reader).transpose()) {
         match item.unwrap() {
             Item::Pkcs8Key(key) => return PrivateKeyDer::Pkcs8(key),
+            Item::Pkcs1Key(key) => return PrivateKeyDer::Pkcs1(key),
             _ => panic!("unhandled item"),
         };
     }

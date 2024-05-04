@@ -3,7 +3,7 @@ mod set_tls;
 mod connection;
 mod save_ip;
 mod set_dir;
-mod exploit;
+//mod exploit;
 mod hs_server;
 
 use std::thread;
