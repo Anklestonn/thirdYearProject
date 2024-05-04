@@ -37,7 +37,10 @@ pub fn pop_first_line_target() -> Vec<String> {
         .take_while(|line| !line.is_empty())
         .collect();
 
-    contents.remove(0);
+    if contents.len() > 0 {
+
+        contents.remove(0);
+    }
     contents
 
 }
