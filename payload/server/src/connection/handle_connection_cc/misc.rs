@@ -9,7 +9,7 @@ pub fn get_param(param: &str) -> Vec<u8> {
     let mut content = match content_option {
         Ok(file) => file,
         Err(..) => {
-            println!("warning: No param to send");
+            //println!("warning: No param to send");
             return Vec::new();
         },
     };

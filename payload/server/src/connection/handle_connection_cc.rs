@@ -17,7 +17,7 @@ pub fn hc_cc(mut stream: Stream<'_, ServerConnection, TcpStream>) {
         .take_while(|line| !line.is_empty())
         .collect();
     
-    println!("Received (CC): {:#?}", contents.first());
+    //println!("Received (CC): {:#?}", contents.first());
 
     let order_raw = match contents.first() {
         Some(string) => string,

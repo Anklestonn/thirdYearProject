@@ -17,7 +17,7 @@ pub fn hc_fs(mut stream: Stream<'_, ServerConnection, TcpStream>){
         .collect();
 
 
-    println!("Recieved data from client (fs): {:#?}", contents);
+    //println!("Recieved data from client (fs): {:#?}", contents);
 
     let data = misc::fs_read_file(misc::parse_file_name(contents));
 

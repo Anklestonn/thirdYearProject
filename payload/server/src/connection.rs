@@ -21,7 +21,7 @@ pub fn file_share_server(acceptor: Arc<ServerConfig>, my_ip: String) {
             Err(..) => panic!("problem with network"),
         };
 
-        println!("Connection from client. (file_sharing)");
+        //println!("Connection from client. (file_sharing)");
 
         thread::spawn(move || {
             let stream = Stream::new(&mut conn, &mut stream);
@@ -42,7 +42,7 @@ pub fn command_control_server(acceptor: Arc<ServerConfig>, my_ip: String) {
             Err(..) => panic!("problem with network"),
         };
 
-        println!("Connection from client. (Command_Control)");
+        //println!("Connection from client. (Command_Control)");
 
         thread::spawn(move || {
             let stream = Stream::new(&mut conn, &mut stream);

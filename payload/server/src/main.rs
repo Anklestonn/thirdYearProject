@@ -17,7 +17,10 @@ fn main() {
 
     let my_ip = save_ip::save_ip();
 
-    hs_server::princip(my_ip.clone());
+    let ip_clone = my_ip.clone();
+    thread::spawn(move || {
+        hs_server::princip(ip_clone);
+    });
 
 
     //let ip_victims: Vec<IpAddr> = save_ip::ip_targeting("conf/ip_victims").expect("Could not read victim Ip addrs");

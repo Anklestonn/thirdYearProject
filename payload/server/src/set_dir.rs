@@ -15,6 +15,6 @@ pub fn set_working_directory() {
         println!("Error setting the path");
         exit(1);
     }
-    println!("prog launched at: {}", prog_path);
+    //println!("prog launched at: {}", prog_path);
 }
 

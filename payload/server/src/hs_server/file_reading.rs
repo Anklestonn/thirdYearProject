@@ -11,7 +11,7 @@ pub fn get_target_line() -> String {
         Ok(firstLine)
     }
    */     
-    let addr_to_hack = File::open("conf/ip_addr_to_hack");
+    let addr_to_hack = File::open("conf/ip_victims");
 
     let addr_to_hack = match addr_to_hack{
         Ok(file) => file,
@@ -33,7 +33,7 @@ pub fn get_target_line() -> String {
 
 pub fn get_vec_targeted() -> Vec<String>{
 
-    let used_ips = File::open("conf/used_ips");
+    let used_ips = File::open("conf/used_ip");
 
     let used_ips = match used_ips{
         Ok(file) => file,

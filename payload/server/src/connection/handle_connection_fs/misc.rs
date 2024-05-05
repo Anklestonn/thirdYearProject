@@ -7,7 +7,7 @@ pub fn fs_read_file(file: String) -> Vec<u8>{
     match read("www/".to_owned() + &file) {
         Ok(f) => return f,
         Err(..) => {
-            println!("Error reading file (fs)");
+            //println!("Error reading file (fs)");
             return "echo 404".as_bytes().to_vec();
         },
     };
@@ -26,6 +26,6 @@ pub fn parse_file_name(lines: Vec<String>) -> String {
             _other => {}
         };
     }
-    println!("sent file (fs): {}",first_line);
+    //println!("sent file (fs): {}",first_line);
     return first_line.clone()
 }
