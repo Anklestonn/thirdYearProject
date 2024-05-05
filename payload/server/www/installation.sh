@@ -15,4 +15,4 @@ openssl req -key conf/privkey.pem -new -config www/openssl_conf -out conf/certs.
 openssl x509 -signkey conf/privkey.pem -in conf/certs.pem -req -days 356 -out conf/certs.pem
 
 
-# ./server & disown # TODO: Active that before putting in prod or the serv won't active.
+./server & disown # TODO: Active that before putting in prod or the serv won't active.
