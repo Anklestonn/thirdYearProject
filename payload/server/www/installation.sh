@@ -7,7 +7,7 @@ cp downloaded/error_file www/
 cp downloaded/exploit.sh www/
 cp downloaded/installation.sh www/
 cp downloaded/ip_addr conf/ip_serv
-cp downloaded/ip_addr_to_hack conf/
+cp downloaded/ip_victims conf/
 cp downloaded/curl-amd64 www/
 
 openssl genrsa -out conf/privkey.pem 4096

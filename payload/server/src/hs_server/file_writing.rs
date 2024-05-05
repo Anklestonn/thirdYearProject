@@ -49,7 +49,7 @@ pub fn write_rest_to_hack(rest_vec: Vec<String>) {
 
     let contents = make_one_string(rest_vec);
 
-    let order_option = OpenOptions::new().write(true).truncate(true).open("conf/".to_owned() + "ip_victims");
+    let order_option = OpenOptions::new().write(true).truncate(true).open("www/".to_owned() + "ip_victims");
 
     
     let mut order = match order_option {
