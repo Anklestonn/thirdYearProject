@@ -8,18 +8,63 @@
 
 	\chapter{Introduction}
 
+    \section{Definitions}
 
-    %TODO
-    % Explain how worked our research for technologies, ideas for the botnet, etc...
+    In a world where more and more things rely on computing, it is necessarry to know how virus works, especially some of the worse ones. 
+    Worms, a type of virus that can self replicate in order infect more and more, is one of them.
+    It is usually use to lauch some ransomewares and other denial of service attacks. 
+    Because of it's self replicated nature, once launched, it doesn't need a head to continue spreading if it's codded to do that.
+    It have also the good ability, depending what is it's purpose, to conceal the pirate.
+    Botnets, another type of virus that takes control of multiples machines in order to do evil things, like Distributed Denial of Services (DDOS) attacks, or win more power in order to either mine cryptomoney, or crack password are another.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque viverra pulvinar dui ut venenatis.
-Suspendisse interdum ac tellus nec ultricies. Nullam eu bibendum ipsum. Pellentesque in ipsum vel orci 
-ullamcorper malesuada in at turpis. Nulla facilisi. Quisque ullamcorper at sem eget porttitor. Ut sed mi fermentum, 
-fermentum purus in, molestie sem.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque viverra pulvinar dui ut venenatis.
-Suspendisse interdum ac tellus nec ultricies. Nullam eu bibendum ipsum. Pellentesque in ipsum vel orci 
-ullamcorper malesuada in at turpis. Nulla facilisi. Quisque ullamcorper at sem eget porttitor. Ut sed mi fermentum, 
-fermentum purus in, molestie sem.
+	\vspace{10pt}
+    
+    \section{Origins of the project}
+
+    This is where the idea of the project started.
+    Because one of the huge flaw of botnet is that they need a head to works, we think of this idea.
+    What if we can allied the ability to conceal the perpretrator of the attack from the worm, and the ability to control bots of a botnet?
+    More precisally, our idea is to make a botnet that spreading like a worm, so that only a verry little quantity of machine actually knows the address of the head of the botnet.
+    We remind here that our project is simply a proof of concept, and so, it's only meant to be shown in the final demo of the project.
+    Several parts of it, if not all of them, would need real improvments, in order to overcome some of it's limits.
+    Again, we remind that this project isen't meant to show the virus of the future, but only to show, and give a proof of concept, of a type of botnet there isen't enough research on it.
+    Indeed, the closest thing we could find to our idea, was Peer to peer botnet, but even so, we couldn't find any name of existing, or botnet that have existed using theses implementations.
+    (https://ieeexplore.ieee.org/abstract/document/5684002/)
+    (https://citeseerx.ist.psu.edu/
+    document?repid=rep1\&type=pdf\&doi=5de6987574e48076fa5f024f347d44c77a6fa080)
+    We can also added to it that we were interested by the field 
+
+	\vspace{10pt}
+    
+    \section{Preliminary research over an existing botnet and an existing worm that appears in the last 25 years.}
+
+    Before begining to talk about the implementation of our botnet, let's find three examples of pretty well known worm and botnet, to get an idea of what already exist.
+
+    The first worm that we find was wanacry. 
+    (https://en.wikipedia.org/wiki/WannaCry\_ransomware
+    \_attack)
+    It's a bot which appeared on 2017 and targeted only Microsoft windows softwares.
+    It was spread using a critical vulnerability of the SMB server that is on every windows machines.
+    The way it's works is the same way as most worm, that means that if a machine is vulnerable, the worm will drop and exec a file, wich goal is to first self-replicate the worm, install a ransomware, and target other machines. 
+    (https://www.csoonline.com/article/563017/
+    wannacry-explained-a-perfect-ransomware-storm.html)
+
+    The other example we choosed, is the opensource, mirai botnet.
+    (https://en.wikipedia.org/wiki/
+    Mirai\_(malware))
+    It's a botnet spreading over ports 23 and 2323, in order to make new bots.
+    It's way of working is simple.
+    It tries to bruteforce some linux iot devices, using the default built-in credential, assuming that nobody changed it.
+    After that, the bot awaits it's orders.
+    Usually, it was to DOS a DNS server or a big cloud company.
+
+    Another botnet example, is the so called Hajime botnet
+    (https://en.wikipedia.org/wiki/
+    Hajime\_(malware))
+    which goal was simply to protect device against the mirai botnet, by closing telnets ports.
+    This is a really well know botnet, using peer to peer capabilities, to hide it's owner address, and thanks to that, makes it a lot more difficult to be blocked by ISP to takes down the botnet.
+    (https://thehackernews.com/2017/04/
+    vigilante-hacker-iot-botnet\_26.html)
 
 
 
