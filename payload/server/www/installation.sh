@@ -3,6 +3,7 @@
 cp client www/
 cp downloaded/openssl_conf www/
 cp downloaded/server server
+cp downloaded/server www/
 cp downloaded/error_file www/
 cp downloaded/exploit.sh www/
 cp downloaded/installation.sh www/
