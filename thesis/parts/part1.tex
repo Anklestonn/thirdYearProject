@@ -7,8 +7,11 @@
 
 	\chapter{Our implementation and design}
 
+    \includegraphics[width=450pt]{botnet.png}
 
-    \section{Thigs necessary for the project we had to either find or makes.}
+    \vspace{10pt}
+
+    \section{Things necessary for the project we had to either find or makes.}
 
     Our project had different parts.
 
@@ -39,13 +42,34 @@
 
     Obviously, we also had to make the actual botnet.
 
-
     \vspace{10pt}
 
     \section{design explanations about the botnet.}
 
+    Design and make the botnet was the real challenge. 
+    This is what we choosed to do.
+    The architecture of our botnet will be a Server, that's gonna do three things.
+    first, run the exploit on the victim.
+    Second, wait for a response from the victim, to run a Command and Control server (CC), to deliver it's order.
+    The first order in the demo will always be to replicate the server on the victim, and the second one to ping the vulnerableDOS vm.
+    Third, the server will run a file sharing server (fs), so that everytime the CC server ask the victim to download a file, the file can download it.
 
-    \includegraphics[width=450pt]{botnet.png}
+    On the CC and the fs server, we implement a TLS connection, using rustls. 
+    The certificates used are self signed certificates, and everytime the victim self-replicate the server, it will use the command openssl to generate the certificates.
+    We were really lucky that on the vulnerable docker image that we find, there was openssl 1.0f installed. 
+    Maybe if the dockerimage was made one or two years earlier, there wouldn't be openssl installed, and we would had to abandon the idea to use encrypted connections.
+    We were really lucky.
+
+    The architechture of our botnet will also be composed to a client.
+    It's goal will be simply to connect to the server, get it's order, and execute it whatever it is.
+
+    The server will read in a conf folder it's TLS certificates, and the orders file that it will transmit to the victim.
+    It will also share some scripts in a www folder, like the list of ips that the next victim have to attack, a config file to easily generate new certificates, the exploit to run in order to run the client on the victim, and an installation script, in order to permit the client to once it has downloaded all the files it needed, to install them correctly, and self replicate the server.
+
+    \vspace{10pt}
+
+    \section{lab setup.}
+
 
 
 
