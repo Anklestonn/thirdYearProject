@@ -10,9 +10,7 @@ use std::thread;
 fn main() {
 
     set_dir::set_working_directory();
-
     let acceptor = set_tls::conf_tls();
-
     let my_ip = save_ip::save_ip();
 
     let ip_clone = my_ip.clone();
@@ -21,7 +19,6 @@ fn main() {
     });
 
     // Launch in a new thread the file sharing server
-
     let my_ip_fs = my_ip.clone();
     let acceptor_fs = acceptor.clone();
     thread::spawn(move || { // lauch file_share_server
@@ -30,7 +27,6 @@ fn main() {
 
     // launch the Command an Control server.
     connection::command_control_server(acceptor, my_ip);
-
 }
 
 

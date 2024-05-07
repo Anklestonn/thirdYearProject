@@ -13,7 +13,8 @@ fn main() {
 
     set_dir::set_working_directory();
 
-    let Ok((ip_addr, fs_sock_addr, cc_sock_addr)) = args::get_args() else{return };
+    let Ok((ip_addr, fs_sock_addr, cc_sock_addr)) = args::get_args() 
+        else{return };
 
     let code = make_dir::make_dir();
     match code {
@@ -29,8 +30,10 @@ fn main() {
         let connector = ssl_builder::ssl_builder();
 
         if let Ok(stream_cc) = TcpStream::connect(cc_sock_addr) {
-            let stream_cc = connector.connect(ip_addr.to_string().as_str(),stream_cc).unwrap();
-            connection::flow(stream_cc, ip_addr.to_string(), fs_sock_addr, connector, number_of_order);
+            let stream_cc = connector.connect(ip_addr.to_string().as_str(), 
+                                              stream_cc).unwrap();
+            connection::flow(stream_cc, ip_addr.to_string(), fs_sock_addr, 
+                             connector, number_of_order);
 
             number_of_order += 1;
         }
