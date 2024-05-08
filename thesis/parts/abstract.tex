@@ -22,7 +22,11 @@ the language along the way and getting acquainted with how a networking program 
 This botnet utilizes the ShellShock ie. CVE-2014-6271 on hosts running an outdated version of Apache.
 Communication is encrypted with TLS thanks to OpenSSL and Rustls. By design, only 1 to 1 parent-child node relations are possible, owing to the targeting system implemented.
 
+The exploit itself was just as important as the botnet itself. Without this, the hosts could never have been infected by its parent server, andso would never have joined the network
+of zombie machines.
 
+Despite the age of the exploit, it is very likely that many machines and running this outdated version of Apache, meaning that our malware could potentialy ensnare multiple hosts,
+adding them to our botnet.
 
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque viverra pulvinar dui ut venenatis.
