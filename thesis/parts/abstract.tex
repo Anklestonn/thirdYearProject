@@ -13,6 +13,18 @@
     \section*{Abstract}
 
     %TODO
+Whatever one host can do by itself, one thousand hosts can do it better together. Malicious actors spread their networks of zombie hosts to grant them the power of many machines.
+They pose a challenge to law enforcement, companies and targeted individuals given their power to cause damage as well as resilience from being disrupted.
+
+We decided to learn about the intricacies of this threat by creating our own botnet, written in Rust.
+The aim was to delve into the low level world of programming networking functionality, hence why Rust was used. We used the Rust library documentation and Rust's compiler to learn
+the language along the way and getting acquainted with how a networking program should be written in a low level.
+This botnet utilizes the ShellShock ie. CVE-2014-6271 on hosts running an outdated version of Apache.
+Communication is encrypted with TLS thanks to OpenSSL and Rustls. By design, only 1 to 1 parent-child node relations are possible, owing to the targeting system implemented.
+
+
+
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque viverra pulvinar dui ut venenatis.
 Suspendisse interdum ac tellus nec ultricies. Nullam eu bibendum ipsum. Pellentesque in ipsum vel orci 
 ullamcorper malesuada in at turpis. Nulla facilisi. Quisque ullamcorper at sem eget porttitor. Ut sed mi fermentum, 
