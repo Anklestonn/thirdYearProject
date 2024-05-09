@@ -104,17 +104,18 @@
     It will then execute the server.
     The new server will look for other victims, and run again it's CC server and its fs server.
 
+    Step four.
     Finally, once the client had run another server, it will ask for it's attack order from the CC server, which is called order2.
     Typically, an order2 file will ask the client to download and execute a BASH script.
     This BASH script will run the attack.
     In the case of the demo, it will only run `ping 10.0.2.18` to prove that it has made a bot.
 
-    %TODO Put here the comunication draft.
+    \includegraphics[width=450pt]{botnet_flow.png}
 
-    
+    What the flowchart doesn't says, is that every time it receive an order, it will save it, and make it accessible to the server so that is can relaie to the next node the orders.
+    Also, everytime a file is downloaded, it will be made accessible, so that the next node will be able to download it.
 
-
-
+    Now that we have stated our actual reflection that we made before making the botnet, let's look at what was the codding part of the project.
 
 
 
