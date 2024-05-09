@@ -27,24 +27,27 @@ this project.
 
     %TODO
 The main function of the main function for the client is to connect to the parent node's server. Ip address and port numbers are specified with the args functions, which can take
-command line arguments or read directly from a file. Next, the necessary directories are creating, so that the files that are downloaded from the server and those that are created by
-the client are in their respective directories. The meat of the functionality exists inside the loop, where the host continuously connects to the C2 and file sharing server to receive
-files such as the server binary and the ip related files. 
+command line arguments or read directly from a file. These slices are parsed as four unsigned 8 bit integers and two unsigned 16 bit integers and fed into Ipv4Addr::new().
+Next, the necessary directories are creating, so that the files that are downloaded from the server and those that are created by the client are in their respective directories. 
+The meat of the functionality exists inside the loop, where the host continuously connects to the C2 and file sharing server to receive files such as the server binary and the ip
+related files. 
 	\vspace{10pt}
 
 	\section{Server -  A closer look}
 
 
     %TODO
-Most of the cod exists in the server part of the malware, and with good reason, this is the most important part of the source code. It dictates which files get dealt with in which way.
+Most of the code exists in the server part of the malware, and with good reason, this is the most important part of the source code. It dictates which files get dealt with in which way.
 Mainly we look to create and manipulate files for configuration and managing client connections.
 
 Rustls is set up and the ip address of the server is recorded and added to a file. We reuse the ip address mutliple times so having a copy of it in its own file is important. We clone
 the variable that is the ip address so as not to lose ownership of the variable and we use this copy as an argument to the function hs_server. This function reads from the file 
-<victims_ip> and checks if this address is found in another file, <used_ips>, which we create a vector for each value in the file. The reason for this is to not try to hack hosts which he either already attempted to hack. We remove this 
-ip address from the vector and write to the file, truncating it. If there is a match then we do not run the exploit. If there is a match, we run the exploit with the arguments being
-the ip address of the server and the host to hack. The ip address of the victim gets pushed to the vector of already targeted ips and this vector gets written to <used_ips>. At this
-point, the victim should be successfully hacked and be attempting a connection to the filesharing and C2 server, a connection which gets accepted.
+ip_victims and checks if this address is found in another file, used_ip, which we create a vector for each value in the file. The reason for this is to not try to hack hosts which 
+he either already attempted to hack. We remove this ip address from the vector and write to the file, truncating it. If there is a match then we do not run the exploit. If there is a
+match, we run the exploit with the arguments being the ip address of the server and the host to hack. The ip address of the victim gets pushed to the vector of already targeted ips and
+this vector gets written to used_ip. At this point, the victim should be successfully hacked and be attempting a connection to the filesharing and C2 server, a connection which 
+gets accepted. The ports for the file sharing server and C2 server are 7870 and 7878 , respectively, by default. We chose these ports because they fall outside of the 0-1023 range,
+a range of port numbers where root is required to use them.
 
 	\vspace{10pt}
 
