@@ -21,6 +21,7 @@ this project.
 
 	\vspace{10pt}
 
+	\section{Flow of the program}
 
 	\section{Client - A closer look}
 
@@ -28,9 +29,10 @@ this project.
     %TODO
 The main function of the main function for the client is to connect to the parent node's server. Ip address and port numbers are specified with the args functions, which can take
 command line arguments or read directly from a file. These slices are parsed as four unsigned 8 bit integers and two unsigned 16 bit integers and fed into Ipv4Addr::new().
-Next, the necessary directories are creating, so that the files that are downloaded from the server and those that are created by the client are in their respective directories. 
-The meat of the functionality exists inside the loop, where the host continuously connects to the C2 and file sharing server to receive files such as the server binary and the ip
-related files. 
+Next, the directories "www", "conf" and "downloaded" are created, so that the files that are downloaded from the server and those that are created by the client are in their respective
+directories. The meat of the functionality exists inside the loop, where the host continuously establishes TLS connections to the C2 and file sharing servers. The first connection is 
+established with the C2 server where it does <thing>. Then the flow function is called where the connection is established with the file sharing server, receiving files form the file
+sharing server in a safe way.
 	\vspace{10pt}
 
 	\section{Server -  A closer look}
