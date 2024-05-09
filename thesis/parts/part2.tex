@@ -48,11 +48,11 @@ Most of the code exists in the server part of the malware, and with good reason,
 Mainly we look to create and manipulate files for configuration and managing client connections.
 
 Rustls is set up and the ip address of the server is recorded and added to a file. We reuse the ip address mutliple times so having a copy of it in its own file is important. We clone
-the variable that is the ip address so as not to lose ownership of the variable and we use this copy as an argument to the function hs_server. This function reads from the file 
-ip_victims and checks if this address is found in another file, used_ip, which we create a vector for each value in the file. The reason for this is to not try to hack hosts which 
+the variable that is the ip address so as not to lose ownership of the variable and we use this copy as an argument to the function hs\_server. This function reads from the file 
+ip\_victims and checks if this address is found in another file, used\_ip, which we create a vector for each value in the file. The reason for this is to not try to hack hosts which 
 he either already attempted to hack. We remove this ip address from the vector and write to the file, truncating it. If there is a match then we do not run the exploit. If there is a
 match, we run the exploit with the arguments being the ip address of the server and the host to hack. The ip address of the victim gets pushed to the vector of already targeted ips and
-this vector gets written to used_ip. At this point, the victim should be successfully hacked and be attempting a connection to the filesharing and C2 server, a connection which 
+this vector gets written to used\_ip. At this point, the victim should be successfully hacked and be attempting a connection to the filesharing and C2 server, a connection which 
 gets accepted. The ports for the file sharing server and C2 server are 7870 and 7878 , respectively, by default. We chose these ports because they fall outside of the 0-1023 range,
 a range of port numbers where root is required to use them.
 
