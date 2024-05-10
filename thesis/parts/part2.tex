@@ -22,6 +22,7 @@ this project.
 	\vspace{10pt}
 
 	\section{Flow of the program}
+
 In the botnet creation phase, there are only two actors: the attacking server and the victim client. The attacking server, which is the root infector - attacker.cow, infects the first
 victim - vulnerable1.cow. Firstly it checks its targets, takes the first line of the file of targets, creates an ip address out of this and launches the exploit if the ip address is
 valid. In this case, the ip address belongs to vulnerable1.cow. Then, once the victim is successfully infected, it runs the client binary which is downloaded through the installation
@@ -32,12 +33,15 @@ script<?> and connects to its parent node, which is the server running on attack
 
 
     %TODO
-The main function of the main function for the client is to connect to the parent node's server. Ip address and port numbers are specified with the args functions, which can take
-command line arguments or read directly from a file. These slices are parsed as four unsigned 8 bit integers and two unsigned 16 bit integers and fed into Ipv4Addr::new().
-Next, the directories "www", "conf" and "downloaded" are created, so that the files that are downloaded from the server and those that are created by the client are in their respective
-directories. The meat of the functionality exists inside the loop, where the host continuously establishes TLS connections to the C2 and file sharing servers. The first connection is 
-established with the C2 server where it does <thing>. Then the flow function is called where the connection is established with the file sharing server, receiving files form the file
-sharing server in a safe way.
+The main function of the main function for the client is to connect to the parent node's server.
+Firstly we call set\_working\_directory from the module set\_dir to launch the program at the root of the source code, so that no pathing issues may arise.
+Ip address and port numbers are specified with the args functions, which can take command line arguments or read directly from a file. These slices are parsed as four unsigned 8 bit
+integers and two unsigned 16 bit integers and fed into Ipv4Addr::new(). Next, the directories "www", "conf" and "downloaded" are created, so that the files that are downloaded from 
+the server and those that are created by the client are in their respective directories. The u64 number\_of\_order is initialized to zero so that the client may keep track of conncetions
+to the server, which will be used to coordinate which files are to be downloaded<!verify!>. The meat of the functionality exists inside the loop, where the host continuously
+establishes TLS connections to the C2 and file sharing servers. The first connection is established with the C2 server on port 7878. Then the flow function is 
+called from the module connection. This allows data transfer and the receiving of files from the file sharing server in a safe and managed way. After this, the number\_of\_order variable
+gets iterated by one and the program sleeps for 5 seconds, before more data is received.
 	\vspace{10pt}
 
 	\section{Server -  A closer look}
@@ -47,14 +51,18 @@ sharing server in a safe way.
 Most of the code exists in the server part of the malware, and with good reason, this is the most important part of the source code. It dictates which files get dealt with in which way.
 Mainly we look to create and manipulate files for configuration and managing client connections.
 
-Rustls is set up and the ip address of the server is recorded and added to a file. We reuse the ip address mutliple times so having a copy of it in its own file is important. We clone
-the variable that is the ip address so as not to lose ownership of the variable and we use this copy as an argument to the function hs\_server. This function reads from the file 
-ip\_victims and checks if this address is found in another file, used\_ip, which we create a vector for each value in the file. The reason for this is to not try to hack hosts which 
-he either already attempted to hack. We remove this ip address from the vector and write to the file, truncating it. If there is a match then we do not run the exploit. If there is a
-match, we run the exploit with the arguments being the ip address of the server and the host to hack. The ip address of the victim gets pushed to the vector of already targeted ips and
-this vector gets written to used\_ip. At this point, the victim should be successfully hacked and be attempting a connection to the filesharing and C2 server, a connection which 
-gets accepted. The ports for the file sharing server and C2 server are 7870 and 7878 , respectively, by default. We chose these ports because they fall outside of the 0-1023 range,
-a range of port numbers where root is required to use them.
+Firstly we set a working directory to prevent pathing issues.
+Rustls is set up by calling set\_tls, which reads the certs.pem and privkey.pem files in the conf directory and the returning ServerConfig struct is passed into the value acceptor. 
+The ip address of the server is recorded and added to a file, which is truncated and located in the www directory. We reuse the ip address mutliple times so having a copy of it in its own 
+file is important. We clone
+the variable that is the ip address so as not to lose ownership of the variable and we use this copy as an argument to the function hs\_server which is launched in its own thread.
+This function reads from the file ip\_victims and checks if this address is found in another file, used\_ip, which we create a vector for each value in the file. The reason for this is 
+to not try to hack hosts which he either already attempted to hack. We remove this ip address from the vector and write to the file, truncating it. If there is a match then we do not
+run the exploit. If there is a match, we run the exploit with the arguments being the ip address of the server and the host to hack. The ip address of the victim gets pushed to the 
+vector of already targeted ips and this vector gets written to used\_ip. The ip variable gets cloned once more, as well as the acceptor variable, and are used as arguments for the function file\_share\_server, which is launched on a new thread. 
+At this point, the victim should be successfully remotely controlled via the exploit and be attempting a 
+connection to the filesharing and C2 server. The ports for the file sharing server and C2 server are 7870 and 7878 , respectively, by default. We
+chose these ports because they fall outside of the 0-1023 range, a range of port numbers where root is required to use them.
 
 	\vspace{10pt}
 
