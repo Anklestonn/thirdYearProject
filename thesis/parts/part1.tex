@@ -17,106 +17,104 @@
 
     \begin{itemize}
 
-        \item Make a sandboxing environment, to test it, while been sure that it can't escape. 
+        \item Making a sandbox environment while ensuring the worm does not escape 
         We used qemu and unshare to make an environnment that couldn't reach the external network.
-        In the end, it wasn't really usefull to make it, because we decided that for the demo, the victims ip should be knowed at launched time, so that we won't see unexpected things in the final demo. 
+        In the end it was unnecessary because we decided that for the demonstration the victim ip will be known at launch time, to prevent unexpected results in the final demo. 
 
-        \item Find an exploit to use. 
-        It had to be a remote code execution, easy to setup, and easy to exploit, because it's not in the purpose of the project to find a new vulnerability, make a exploit or another crazy thing like that.
-        We spend hours looking for the perfect exploit, and in the end, we find somebody else project on github, that was doing exactly what we were looking for.
+        \item Finding an exploit to use
+        We needed the exploit to perform remote code execution, be easy to setup and use because the point of this project was not to create an intricate exploit, but rather to build a botnet.
+        We spent hours looking for the perfect exploit and in the end we found a repository on github which performed in a way that we wanted.
         (https://github.com/opsxcq/
         exploit-CVE-2014-6271)
-        Thanks to opsxcq works, we had an easy vulnerability to exploit.
-        We choosed shellshock, CVE-2014-6271.
-        We find in opsxcq repository, a vulnerable docker image to shellshock CVE-2014-6271, and an easy command to exploit it.
-        The other two interested vulnerability that we found in his repos, but that in the end we choosed to not use, was CVE-2016-10033 and CVE-2017-7494.
-        There were both unadapted to our needs because of how difficults they would makes us write the exploit.
-        We also find Log4J, but in the end decided that we would better to abandon it, and try an easier vulnerability to exploit.
+        Thanks to the work of opsxcq, we had an easy vulnerability to exploit.
+        This vulnerability was CVE-2014-6271, known as Shellshock.
+        In opsxcq's repository there was a docker image vulernable to Shellshock which was run by a simple command.
+        There were two other vulnerabilities in his github that we were interested in but ultimately chose to not use: CVE-2016-10033 and CVE-2017-7494.
+        There were both unsuitable for our application and would have required to much effort to get working. 
+        We also considered log4j but decided to use an easier exploit to implement.
 
-        \item Demonstrate the botnet.
-        Like all botnet run things, we had to find a way to prove that the botnet has really taken control of several machine.
-        For that, we made one more Vm, that we called vulnerableDOS. We simply run wireshark into, and once the botnet has taken control of the bots, it will make them ping our machine.
-        At first, we wanted to make our botnet run an actual DDOS attack on the vulnerableDOS machine, but because it's not in the purpose of the project to make it run a complex attack, our goal is just to prove that we have indeed taken control of the vulnerables machines, we choosed to do only ping.
+        \item Demonstrate the botnet
+        In order to demonstrate that the botnet worked we had to prove that the botnet has really taken control of several machine.
+        To accomlish this we created a VM called vulnerableDOS. This VM would run wireshark and, once the botnet has taken control of the bots, receive and display the pings in the interace of wireshark.
+        At first we wanted to make our botnet run an actual DDOS attack on the vulnerableDOS machine, but the purpose of the project was not to make it run a complex attack because our goal was just to prove that we have indeed taken control of the vulnerables machines. Because of this, we chose to simply ping the vulnerable DOS VM.
 
     \end{itemize}
 
-    Obviously, we also had to make the actual botnet.
+    Of course, we also had to make the botnet itself 
 
     \vspace{10pt}
 
-    \section{design explanations about the botnet.}
+    \section{Botnet design}
 
-    Design and make the botnet was the real challenge. 
-    This is what we choosed to do.
-    The architecture of our botnet will be a Server, that's gonna do three things.
-    first, run the exploit on the victim.
-    Second, wait for a response from the victim, to run a Command and Control server (CC), to deliver it's order.
-    The first order in the demo will always be to replicate the server on the victim, and the second one to ping the vulnerableDOS vm.
-    Third, the server will run a file sharing server (fs), so that everytime the CC server ask the victim to download a file, the file can download it.
+    Designing and making the botnet was a real challenge. 
+    The architecture of our botnet would consist of a server and a client. The server had three tasks. 
+    Firstly it runs the exploit against the victim.
+    Secondly, it waits for a response from the victim to run a Command and Control server (CC), to deliver it's order.
+    The first order will always be to replicate the server on the victim, and the second one to ping the vulnerableDOS VM.
+    Thirdly, the server runs a file sharing server (fs), so that every time the CC server ask the victim to download a file, the file can be downloaded.
 
-    On the CC and the fs server, we implement a TLS connection, using rustls. 
-    The certificates used are self signed certificates, and everytime the victim self-replicate the server, it will use the command openssl to generate the certificates.
-    We were really lucky that on the vulnerable docker image that we find, there was openssl 1.0f installed. 
-    Maybe if the dockerimage was made one or two years earlier, there wouldn't be openssl installed, and we would had to abandon the idea to use encrypted connections.
-    We were really lucky.
+    On the CC and the fs server, we implemented a TLS connection, using rustls. 
+    The certificates used are self signed certificates, and every time the server is copied into the victim, openssl is used to generate the certificates.
+    We were really lucky to find that openssl 1.0f was installed on the vulnerable image. 
+    If the docker image was made two year ealier, openssl probably wouldn't have been installed, forcing us to abandon the idea of using encrypted connections.
 
-    The architechture of our botnet will also be composed to a client.
-    It's goal will be simply to connect to the server, get it's order, and execute it whatever it is.
+    The goal of the client is to connect to the server, get its orders, and execute whatever the orders entail.
 
-    The server will read in a conf folder it's TLS certificates, and the orders file that it will transmit to the victim.
-    It will also share some scripts in a www folder, like the list of ips that the next victim have to attack, a config file to easily generate new certificates, the exploit to run in order to run the client on the victim, and an installation script, in order to permit the client to once it has downloaded all the files it needed, to install them correctly, and self replicate the server.
+    The server reads TLS certificates from the conf folder, and the orders file that it transmits to the victim.
+    It also creates files in the www directory eg.the list of ips that the next victim have to attack, a config file to easily generate new certificates, the exploit to run in order to run the client on the victim, and an installation script. In summary, the server permits the client to install whatever the servers serves and to replicate the server itself.
 
     \vspace{10pt}
 
-    \section{lab setup.}
+    \section{Lab setup}
 
-    To run the demo, we first made a base-vm, with runit-dinit on it, and only basic packages.
-    Our goal was to know about everything installed, so that we don't loose time looking for where come a bug from, when it's for a default package.
-    Then, we made 1 vm to be the head of our botnet, 2 vulnerable vm, so that when the botnet attack them, they can became bot, and a last one, named vulnerableDOS, with wireshark installed on it.
+    To set up the lab environmetn we first made a VM, with the dinit init system on it, aswell as basic packages.
+    We did this to be aware of all the programs running on the VM so that we didn't lose excessive time searching for bugs caused by clashes in the OS.
+    We then made a VM to be the head of our botnet, 2 vulnerable vm and 1 more VM named vulnerableDOS.
+    We called the first VM attacker, as it was going to be the initial aggresor in the demonstration.
+    The two vulnerable VMs were called vulnerable1 and vulnerable2.
+    These were going to be infected by the malware and added to the botnet.
+    vulnerableDOS was going to be the vicitm of the botnet's ping attack.
 
     \includegraphics[width=450pt]{lab_env.png}
 
-    Our choice to test the botnet was to make all bots to ping the vulnerableDOS vm.
-    That means that our botnet will work if we manage to make bot 1 and 2 to ping vulnerableDOS vm.
+    This means that our botnet project can be considered a success if we manage to make vulnerable1 and vulnerable2 ping vulnerableDOS.
 
 
     \vspace{10pt}
 
-    \section{Botnet communication.}
+    \section{Botnet communication}
 
-    This is the normal functionnement of the botnet.
+    The following is the flow of the botnet's activity:
     Step one. 
-    The server find an potential target.
-    then, it runs a BASH script, called exploit.sh, which exploit the target.
-    That means, exploit the vulnerability, in order to make the victim download and execute the client.
-    In our case, the client is installed and ran in `/tmp/botnet/`.
+    The server finds an potential target, within the demo, this target is specified.
+    It runs a BASH script, called exploit.sh, which executes the exploit against the target.
+    The exploit ontrols the victim in order to make the victim download and execute the client binary.
+    In our case, the client is installed and run in `/tmp/botnet/`.
 
     Step two.
-    The client ask the server it's installed order, called order1.
-    The server answer, and the client save it in `/tmp/botnet/conf/`.
+    The client requests the server for its first instruction, called order1.
+    The server answers with the file and the client saves it in `/tmp/botnet/conf/`.
 
     Step three.
-    The client read the received order, and every time it reach a line begining by `download`, it ask the filesharing server to give it, and put it in `/tmp/botnet/downloaded/`.
-    Everytime the client reach a line begining by execute, it's execute the file.
+    The client reads the received order and every time it reachs a line begining with `download`, it requests the filesharing server for the respective filet to download which is saved to `/tmp/botnet/downloaded/`.
+    Everytime the client reaches a line begining with 'execute', it executes or runs the file.
 
-    Normally, the only executed file in the installation phase, it's the script `installation.sh`.
-    This script will copy all the downloaded files from `/tmp/botnet/downloaded` to their rightheous folders.
-    It will then execute the server.
-    The new server will look for other victims, and run again it's CC server and its fs server.
+    Normally, only the file 'installation.sh' is executed at this stage.
+    This script copies all the downloaded files from `/tmp/botnet/downloaded` to their respective folders.
+    Now the server is run on the victim, which begins to look for other victims.
 
     Step four.
-    Finally, once the client had run another server, it will ask for it's attack order from the CC server, which is called order2.
+    Finally, once the victim runs its version of the server, it asks for its attack order from the CC server, which is called order2.
     Typically, an order2 file will ask the client to download and execute a BASH script.
     This BASH script will run the attack.
-    In the case of the demo, it will only run `ping 10.0.2.18` to prove that it has made a bot.
+    In the case of the demo, it will only run `ping 10.0.2.18` for simplicity.
 
     \includegraphics[width=450pt]{botnet_flow.png}
 
-    What the flowchart doesn't says, is that every time it receive an order, it will save it, and make it accessible to the server so that is can relaie to the next node the orders.
-    Also, everytime a file is downloaded, it will be made accessible, so that the next node will be able to download it.
+    Note that every time it receives an order, it will save it, and make it accessible to the server so that is can relay the orders to its child node, ie. the victim of the server that is being run.
+    The same is true for every file that is downloaded.
 
-    Now that we have stated our actual reflection that we made before making the botnet, let's look at what was the codding part of the project.
-
+    Having explained the thought process behind the design of the project, let us now look at the code.
 
 
 \end{document}
