@@ -12,28 +12,29 @@
 
     \section*{Abstract}
 
-    %TODO
-Whatever one host can do by itself, one thousand hosts can do it better together. Malicious actors spread their networks of zombie hosts to grant them the power of many machines.
-They pose a challenge to law enforcement, companies and targeted individuals given their power to cause damage as well as resilience from being disrupted.
+    Whatever one host can do by itself, one thousand hosts can do it better together. 
+    Malicious actors spread their networks of zombie hosts to grant them the power of many machines.
+    They pose a challenge to law enforcement, companies and targeted individuals given their power to cause damage as well as resilience from being disrupted.
 
-We decided to learn about the intricacies of this threat by creating our own botnet, written in Rust. Rust is known for its robust type system, safety and concurrency,as well as its
-fantastic performance making it a fantastic language to used for this botnet.
-The aim was to delve into the low level world of programming networking functionality, hence why Rust was used. We used the Rust library documentation and Rust's compiler to learn
-the language along the way and getting acquainted with how a networking program should be written in a low level.
-This botnet utilizes the ShellShock ie. CVE-2014-6271 which exploits a flaw in Bash which allows a malicious actor to remotely execute arbitrary commands on the vulnerable host.
-Communication is encrypted with TLS thanks to OpenSSL and Rustls. By design, only 1 to 1 parent-child node relations are possible, owing to the targeting system implemented.
+    We decided to learn about the intricacies of this threat by creating our own botnet, written in Rust. 
+    Our idea was to use worm's self replicate ability to conceal the hacker's host ip address, so that a bot know only the ip address of the host that have infected it, this way, it can be a lot more difficult for ISP to take down the botnet.
+    Rust is known for its robust type system, safety and concurrency, as well as its fantastic performance making it a fantastic language to used for this botnet.
+    The aim was to delve into the low level world of programming networking functionality, hence why Rust was used. 
+    We used the Rust library documentation and Rust's compiler to learn the language along the way and getting acquainted with how a networking program should be written in a low level.
+    This botnet utilizes the ShellShock ie. CVE-2014-6271 which exploits a flaw in Bash which if it is couple with a webapp that needs to enter system command, allows a malicious actor to remotely execute arbitrary commands on the vulnerable host.
+    Communication is encrypted with TLS thanks to OpenSSL and Rustls. 
+    Because of our needs for the demo, we made a primitive ip targeting system that allow only 1 to 1 parent-child node relations.
 
-The exploit itself was just as important as the botnet itself. Without this, the hosts could never have been infected by its parent server, andso would never have joined the network
-of zombie machines.
-
-Despite the age of the exploit, it is very likely that many machines and running this outdated version of Apache, meaning that our malware could potentialy ensnare multiple hosts,
-adding them to our botnet. Therefore it becomes clear that botnets, even primitive ones by today's standards, pose a threat to security for anyone and everyone, and that botnet
-detection algorithms must implemented and machines up to date to prevent infection/exploitation.
-
-
-	\qquad \textit{Keywords}: Botnet, malware, virus, rust, C2 TODO.
+    Despite the age of the exploit, it is very likely that it stays some website using this specific outdated bash version, meaning that our malware could potentialy make some bots if release in nature. 
+    The exploit itself wasn't really important because the only thing that was important to us, was to be able to exploit by calling a bash script, so that it can be easier to make our botnet run on different exploit. 
+    A possibility of future improvment would be to make it run on multiples exploits at the same time.
+    Therefore, it is nessessary to have different botnets to use, in order to implement protection against botnet in IPS and IDS.
 
 
 	\vspace{10pt}
+
+	\qquad \textit{Keywords}: Botnet, malware, worm, rust, C2, shellshock, TLS.
+
+
 
 \end{document}
