@@ -17,11 +17,11 @@
 
     \begin{itemize}
 
-        \item Making a sandbox environment while ensuring the worm does not escape 
+        \item Making a sandbox environment while ensuring the worm does not escape.
         We used qemu and unshare to make an environnment that couldn't reach the external network.
-        In the end it was unnecessary because we decided that for the demonstration the victim ip will be known at launch time, to prevent unexpected results in the final demo. 
+        In the end it was unnecessary because we decided that for the demonstration the victim ip will be known before launch time, to prevent unexpected results in the final demo. 
 
-        \item Finding an exploit to use
+        \item Finding an exploit to use.
         We needed the exploit to perform remote code execution, be easy to setup and use because the point of this project was not to create an intricate exploit, but rather to build a botnet.
         We spent hours looking for the perfect exploit and in the end we found a repository on github which performed in a way that we wanted.
         (https://github.com/opsxcq/
@@ -33,7 +33,7 @@
         There were both unsuitable for our application and would have required to much effort to get working. 
         We also considered log4j but decided to use an easier exploit to implement.
 
-        \item Demonstrate the botnet
+        \item Demonstrate the botnet.
         In order to demonstrate that the botnet worked we had to prove that the botnet has really taken control of several machine.
         To accomlish this we created a VM called vulnerableDOS. This VM would run wireshark and, once the botnet has taken control of the bots, receive and display the pings in the interace of wireshark.
         At first we wanted to make our botnet run an actual DDOS attack on the vulnerableDOS machine, but the purpose of the project was not to make it run a complex attack because our goal was just to prove that we have indeed taken control of the vulnerables machines. Because of this, we chose to simply ping the vulnerable DOS VM.
@@ -48,8 +48,8 @@
 
     Designing and making the botnet was a real challenge. 
     The architecture of our botnet would consist of a server and a client. The server had three tasks. 
-    Firstly it runs the exploit against the victim.
-    Secondly, it waits for a response from the victim to run a Command and Control server (CC), to deliver it's order.
+    Firstly it runs the exploit against the victim in a thread.
+    Secondly, it runs a Command and Control server (CC), in another thread, to deliver it's order.
     The first order will always be to replicate the server on the victim, and the second one to ping the vulnerableDOS VM.
     Thirdly, the server runs a file sharing server (fs), so that every time the CC server ask the victim to download a file, the file can be downloaded.
 
@@ -67,17 +67,16 @@
 
     \section{Lab setup}
 
-    To set up the lab environmetn we first made a VM, with the dinit init system on it, aswell as basic packages.
+    To set up the lab environment we first made a VM, with the dinit init system on it, aswell as basic packages.
     We did this to be aware of all the programs running on the VM so that we didn't lose excessive time searching for bugs caused by clashes in the OS.
     We then made a VM to be the head of our botnet, 2 vulnerable vm and 1 more VM named vulnerableDOS.
     We called the first VM attacker, as it was going to be the initial aggresor in the demonstration.
     The two vulnerable VMs were called vulnerable1 and vulnerable2.
     These were going to be infected by the malware and added to the botnet.
     vulnerableDOS was going to be the vicitm of the botnet's ping attack.
+    This means that our botnet project can be considered a success if we manage to make vulnerable1 and vulnerable2 ping vulnerableDOS.
 
     \includegraphics[width=450pt]{lab_env.png}
-
-    This means that our botnet project can be considered a success if we manage to make vulnerable1 and vulnerable2 ping vulnerableDOS.
 
 
     \vspace{10pt}
@@ -88,7 +87,7 @@
     Step one. 
     The server finds an potential target, within the demo, this target is specified.
     It runs a BASH script, called exploit.sh, which executes the exploit against the target.
-    The exploit ontrols the victim in order to make the victim download and execute the client binary.
+    The exploit controls the victim in order to make the victim download and execute the client binary.
     In our case, the client is installed and run in `/tmp/botnet/`.
 
     Step two.
@@ -96,8 +95,8 @@
     The server answers with the file and the client saves it in `/tmp/botnet/conf/`.
 
     Step three.
-    The client reads the received order and every time it reachs a line begining with `download`, it requests the filesharing server for the respective filet to download which is saved to `/tmp/botnet/downloaded/`.
-    Everytime the client reaches a line begining with 'execute', it executes or runs the file.
+    The client reads the received order and every time it reachs a line begining with `download`, it requests the filesharing server for the respective file to download which is saved to `/tmp/botnet/downloaded/`.
+    Everytime the client reaches a line begining with 'execute', it executes the file.
 
     Normally, only the file 'installation.sh' is executed at this stage.
     This script copies all the downloaded files from `/tmp/botnet/downloaded` to their respective folders.
