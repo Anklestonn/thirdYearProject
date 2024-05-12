@@ -13,36 +13,35 @@
     The world is relying on computers more with each passing year.
     It's necessary more than ever to know how a computer virus functions. 
     One of the many types of malwares is the worm.
-    A worm is a self-replicating type of malware, which spreads out and takes more computers, these are called victims. 
-    Its use for a black hat hacker is usually to launch ransomware and other types of denial-of-service attacks on victims. 
+    According to wikipedia, a worm is a self-replicating type of malware, which spreads out and takes more computers [1].
+    In the following document, thoses computers will be called victims or target before our malware infects it, and bots after. 
+    According to howtogeek.com, its use for a black hat hacker is usually to launch ransomware or other virus attacks [2]. 
     One of the many dangerous features of a worm is how it does not need a central controlling component to propagate. 
-    A central controlling component is where the worm can be controlled and given instructions, this is also known as its "head”. 
     A worm virus can also conceal the party of which created or distributed the malicious software. 
 
-    Botnets are another type of computer virus, which hijacks and takes control of multiple machines to violate laws or regulations. 
+    According to malwarebytes, malicious botnets are another type of malware, which hijacks and takes control of multiple machines to violate laws or regulations [3]. 
     This type of malware could be instructed to launch a cyber-attack, such as Distributed Denial of Services (DDOS) attacks, mine crypto money or crack passwords. 
     A botnet need a machine to give it's orders, without it, there would be no orders and no attacks, so no botnets.
+    A central controlling component is where the botnet can be controlled and given instructions, we will call it "head" in this document. 
 
 	\vspace{10pt}
     
     \section{Origins of the project}
 
     As a result of the botnet virus's inability to continue propagating without its “head”, our project idea began. 
-    We asked ourselves what if we took aspects from the two viruses and combined them. 
+    We asked ourselves what if we took aspects from the two malewares and combined them. 
     Specifically, the worm's ability to conceal the preoperatory and the botnets capability to control the bots of itself. 
     Moreover, our idea and concept is to make a botnet that spreads like a worm and conceals the address of the 'head' to the majority of the infected machine. 
     The address being its IP address, an IP address is an unique code that identifies a computer or a certain computer network. 
-    This being a monumental task within our ability and timeframe we simplified our idea to being proof of concept, a worm botnet. 
+    This being a monumental task within our ability and timeframe we simplified our idea to being a proof of concept, a worm botnet. 
     We reiterate that our project is solely proof of concept and is intended to only be showcased in our project demonstration. 
     We recognize that our project would need immense improvements in several areas to overcome its limitations. 
     Again, we reiterate that this project isn't supposed to show the virus of the future. 
     Its purpose is to show proof of concept and demonstrate that there isn't enough research on a worm botnet. 
     In fact, the closest documentation we could find that was congruent with our concept was peer to peer botnets. 
-    Which has similar aspects to what we want to achieve, but not precisely. (https:// ieeexplore.ieee.org/ abstract/ document/ 5684002/) (https:// citeseerx.ist.psu.edu/ document?repid=rep1\& type=pdf\& doi=5de6987574e48076fa5f024f347d44c77a6fa080) 
+    Which has similar aspects to what we want to achieve, but not precisely. [4] [5] 
     We where also really interested to know how a botnet, and how a worm would works, and this project gave us the knowledge we always dreamed to get.
 
-    %(https://ieeexplore.ieee.org/abstract/document/5684002/)
-    %(https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=5de6987574e48076fa5f024f347d44c77a6fa080)
 
 	\vspace{10pt}
     
@@ -50,14 +49,14 @@
 
 Before we delve into the implementation aspect of our botnet let's first examine well-known worms and botnets.  
 
-Worm virus WannaCry (https://en.wikipedia.org/wiki/WannaCry\_ransomware\_attack) is a bot which first appeared in 2017.
+Worm virus WannaCry [6] is a bot which first appeared in 2017.
 This bot exclusively targeted Microsoft Windows Software. 
 It spread itself exploiting a critical vulnerability of the Server Message Block (SMB), this being on every Windows machine it was extemelly serious. 
 The way this worm works is standard in the realm of worm viruses. 
 The worm will attack if the machine is vulnerable, it will drop the exec file. 
-This file's goal is to self-replicate the worm, install ransomware and target other machines (https://www.csoonline.com/ article/563017/wannacry-explained-a-perfect-ransomware-storm.html) 
+This file's goal is to self-replicate the worm, install ransomware and target other machines [7] 
 
-Another example is the opensource Mirai botnet(https://en.wikipedia.org/wiki/Mirai\_(malware)) 
+Another example is the opensource Mirai botnet [8] 
 It's a botnet that spreads over ports 23 and 2323, in order to make new bots. 
 The way it works is simple, it tries to brute force the password of an iot device. 
 It achieves this by using default built-in credentials, for example default usernames, passwords etc. However, this relies on the fact that it hasn't been changed. 
@@ -65,10 +64,10 @@ Once this is complete the bot awaits its instructions.
 Usually, the bot is instructed to launch the cyber-attack Denial of Service (DOS), which is an attack that floods the server or network with too much traffic, causing it not to function properly. 
 This cyber-attack is launched against a DNS server or a big cloud company. 
 
-Botnet Hajime is another example (https://en.wikipedia.org/wiki/ Ha-jime\_(malware)). 
+Botnet Hajime is another example [9]. 
 This botnet's simply goal was to protect devices against the previously talked about Mirai botnet, by closing telnet ports. 
 Hajime is a well-known botnet it uses peer to peer capabilities; it does this to hide its perpetrator address. 
-Thus, makes it far more difficult to be blocked by ISP to takes down the botnet (https://thehackernews.com/2017/04/ vigilante-hacker-iot-botnet\_26.html) 
+Thus, makes it far more difficult to be blocked by ISP to takes down the botnet [10].
 
 
 
