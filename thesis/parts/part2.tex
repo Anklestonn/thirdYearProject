@@ -11,11 +11,11 @@
 	\section{Why Rust?}
 
 
-    Rust is a multi-paradigm low level programming language which emphasizes memory safety, strict types and high performance. 
+    Rust [14] is a multi-paradigm low level programming language which emphasizes memory safety, strict types and high performance. 
     Despite its novel features(and associated learning curve), such as variable ownership and its ommission of a null variable, it is already a loved language among developers, which forces the developer to write safer and more performant code.
     Despite it lacking as many footguns as C/C++, it allows a great deal of control over what happens in a program. 
     Though young, Rust is seen as the spearhead for the languages of the future, looking to replace C++ as the dominant low level language. 
-    Rust has been added to the Linux kernel, currently the only language to accompany C in this domain, and is being picked up by even the largest companies, such as Google. On the opposite side of the spectrum, hackers have begun writing in Rust, due to its aforementioned strengths and the current inability for malware scanners to detect threats in the binary[reference]. 
+    Rust has been added to the Linux kernel [15], currently the only language to accompany C in this domain, and is being picked up by even the largest companies, such as Google. On the opposite side of the spectrum, hackers have begun writing in Rust, due to its aforementioned strengths and how pleasant it is to use [16]. 
     All of these reasons combined form our argument for learning Rust, which is what we had to do for this project.
 
 	\vspace{10pt}
@@ -75,11 +75,11 @@
     Firstly, it was the first time we were coding in rust, so we had to learn the language.
     Secondly, it was just the three of us doing the project, we needed to be well organised and to distribute our tasks.
     We also had problems with the code;
-    For instance, we first chose Openssl as our tls library but we find out that we needed to build statically linked binaries in order to make them run on the victim, and so for that we had to use musl and rustls.
+    For instance, we first chose Openssl as our tls library but we find out that we needed to build statically linked binaries in order to make them run on the victim, and so for that we had to use musl and rustls [17].
     This we could put on for the server, but because we were using self signed certificates, we had to keep Openssl for the client.
     The solution we found for the client was to active the cross-compilation for OpenSsl, and the problem was solved.
     We also encountered other difficulties because of the cross-compilation.
-    For exmaple we found that our exploit was using curl, so we tried to build it statically linked, but we failed, so we looked for an already statically linked binary of curl on the internet, which we thankfully found.
+    For example we found that our exploit was using curl, so we tried to build it statically linked, but we failed, so we looked for an already statically linked binary of curl on the internet, which we thankfully found.
     Our original client design had a big flow in it, and so we had to rewrite again all the main and flow function.
     Fortunately, it was only thoses two function that had to be rewritten.
 
