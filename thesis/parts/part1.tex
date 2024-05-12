@@ -23,9 +23,7 @@
 
         \item Finding an exploit to use.
         We needed the exploit to perform remote code execution, be easy to setup and use because the point of this project was not to create an intricate exploit, but rather to build a botnet.
-        We spent hours looking for the perfect exploit and in the end we found a repository on github which performed in a way that we wanted.
-        (https://github.com/opsxcq/
-        exploit-CVE-2014-6271)
+        We spent hours looking for the perfect exploit and in the end we found a repository on github which performed in a way that we wanted [11].
         Thanks to the work of opsxcq, we had an easy vulnerability to exploit.
         This vulnerability was CVE-2014-6271, known as Shellshock.
         In opsxcq's repository there was a docker image vulernable to Shellshock which was run by a simple command.
@@ -35,7 +33,7 @@
 
         \item Demonstrate the botnet.
         In order to demonstrate that the botnet worked, we had to prove that the botnet had really taken control of several machines.
-        To accomplish this we created a VM called vulnerableDOS. This VM would run WireShark, once the botnet has taken control of the bots and received the pings. We will display the pings on the interace in wireshark.
+        To accomplish this we created a VM called vulnerableDOS. This VM would run WireShark [12], once the botnet has taken control of the bots and received the pings. We will display the pings on the interace in wireshark.
         At first, we wanted to make our botnet run a DDOS attack on the vulnerableDOS machine, but the purpose of the project was not to make the botnet run complex attack. Our goal was to prove that we have indeed taken control of the vulnerables machines. Therefore, we chose to simply ping the vulnerable DOS VM.
 
     \end{itemize}
@@ -67,7 +65,7 @@
 
     \section{Lab setup}
 
-    To set up the lab environment we first made a VM, with the dinit init system on it, aswell as basic packages.
+    To set up the lab environment we first made a VM, with the dinit init system on it [13], aswell as basic packages.
     We did this to be aware of all the programs running on the VM so that we didn't lose excessive time searching for bugs caused by clashes in the OS.
     We then made a VM to be the head of our botnet, 2 vulnerable vm and 1 more VM named vulnerableDOS.
     We called the first VM attacker, as it was going to be the initial aggresor in the demonstration.
