@@ -17,8 +17,8 @@
     They pose a challenge to law enforcement, companies and targeted individuals given their power to cause damage as well as resilience from being disrupted.
 
     We decided to learn about the intricacies of this threat by creating our own botnet, written in Rust. 
-    Our idea was to use worm's self replicate ability to conceal the hacker's host ip address, so that a bot know only the ip address of the host that have infected it, this way, it can be a lot more difficult for ISP to take down the botnet.
-    Rust is known for its robust type system, safety and concurrency, as well as its fantastic performance making it a fantastic language to used for this botnet.
+    Our idea was to use worm's self replicate ability to conceal the hacker's host ip address, so that a bot know only the ip address of the host that have infected it, this way, it can be a lot more difficult for an ISP to take down the botnet.
+    Rust is known for its robust type system, safety and concurrency, as well as its fantastic performance making it a fantastic language to use for this botnet.
     The aim was to delve into the low level world of programming networking functionality, hence why Rust was used. 
     We used the Rust library documentation and Rust's compiler to learn the language along the way and getting acquainted with how a networking program should be written in a low level.
     This botnet utilizes the ShellShock ie. CVE-2014-6271 which exploits a flaw in Bash which if it is couple with a webapp that needs to enter system command, allows a malicious actor to remotely execute arbitrary commands on the vulnerable host.
