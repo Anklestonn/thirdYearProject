@@ -53,17 +53,34 @@
     Then, it imports TcpStream, to make the stream object, command, to run system command, and exit, to exit in case there is a problem.
     Then, the main start, the working directory is set where the binary is, it makes all the nessecarry directory, like www, downloaded or conf, and exit in case of an error.
     Then, it makes the stream with the CC server, and launch the flow. 
-    It counts the number of times it loops, that usefull to know if it's the first time or not that it's connect to the server, adn then to ask for order1 or order2.
+    It counts the number of times it loops, that usefull to know if it's the first time or not that it's connect to the server, adn then to ask for order1 or order2 in the flow function.
     After each successful connection, it's wait for 5 seconds, before launching the next connection.
-
 
     \# client/src/connection.rs
 
     \includegraphics[width=450pt]{client_flow.png}
 
+    This is the flow function.
+    First, it determine if it has to ask for the installation order or the attack order depending on the number in the loop it is.
+    Then, asks it's order from the CC server, parse it, and make a list of files to download, and of files to execute.
+    After that, for each item to downloaded, it makes a connection with the filesharing server to download it, and after downloaded all the necessary files, it executes all the files asked to execute.
+    Usually, it's only one BASH script.
+
+
 	\vspace{10pt}
 
 	\section{Difficulties encountered while writting the program}
+
+    While writing our botnet's code, we encountered different difficulties.
+    First, it was the first time we were coding in rust, so we had to learn the language.
+    Second, because we were three folks on the project, we needed to find a good organisation, and share well our tasks.
+    We also had other real problems with the code;
+    For instance, we first choosed Openssl as tls library, then, we find out that we needed to build statically linked binaries in order to make them run on the victim, and so for that we had to use musl, and rustls.
+    We could put it for the server, but because we were using self signed certificates, we had to keep Openssl for the client.
+    Then, the solution we find for the client was to active the cross-compilation for OpenSsl, and the problem was solved.
+    As other difficulties because of the cross-compilation, it was the fact that our exploit was using curl, so we tried to build it statically linked, we failed, so we look for an already statically linked binarry of curl on the internet, then we could find it.
+    Our original client design had a big flow in it, and so we had to rewrite again all it's main and flow function.
+    Fortunately, it was only thoses two function that was to be rewrote.
 
 
 
