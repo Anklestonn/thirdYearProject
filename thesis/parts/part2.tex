@@ -31,12 +31,12 @@
 
     \includegraphics[width=450pt]{server_main.png}
 
-    Here, we can see that first, we import line 1-5 different modules that we have written, to help us writting all together on the code at the same time.
-    Then, line 7, we import thread.
-    The main function begin, and immediately, we set the working directory, to where the binary is.
-    After that, we create the acceptator, save the server ip address, and give it in a different thread to the hs\_server, the hacking server, which will transform the victim to a bot.
-    Now, we are to the last part of the server.
-    It generate the file sharing server in another thread, and then, wait for connection for the command and control server.
+    Firstl, we import different modules that we have written on line 1-5 , to modularize and simplify the code.
+    Then, at line 7, we import thread.
+    The main function begins and we set the working directory to where the binary is.
+    After that, we create the acceptor, save the server ip address, and create a new thread for hs\_server, the hacking server, which will transform the victim into a bot.
+    Now, we are approaching the last part of the server.
+    We create a thread for the file sharing server in wich the file sharing server is called and wait for connection to launch command and control server.
 
     
 	\vspace{10pt}
@@ -49,38 +49,39 @@
 
     \includegraphics[width=450pt]{client_main.png}
 
-    The begining of the main is the import of different functions.
-    Then, it imports TcpStream, to make the stream object, command, to run system command, and exit, to exit in case there is a problem.
-    Then, the main start, the working directory is set where the binary is, it makes all the nessecarry directory, like www, downloaded or conf, and exit in case of an error.
-    Then, it makes the stream with the CC server, and launch the flow. 
-    It counts the number of times it loops, that usefull to know if it's the first time or not that it's connect to the server, adn then to ask for order1 or order2 in the flow function.
-    After each successful connection, it's wait for 5 seconds, before launching the next connection.
+    At the begining of the main it imports the different functions.
+    Then it imports TcpStream, command, and exit, to make the stream object, run system commands and to exit in case there is a problem.
+    Then, at the beginning of the main function, the working directory is set to where the binary is, it makes all the nessecarry directory ie.www, downloaded,conf, and exits in case of an error.
+    Then, it makes the stream with the CC server, and launches the flow function. 
+    It counts the number of times it loops, which is useful to know the amount of times it has connected to the server, and then to asks for order1 or order2 in the flow function.
+    After each successful connection it waits for 5 seconds before launching the next connection.
 
     \# client/src/connection.rs
 
     \includegraphics[width=450pt]{client_flow.png}
 
     This is the flow function.
-    First, it determine if it has to ask for the installation order or the attack order depending on the number in the loop it is.
-    Then, asks it's order from the CC server, parse it, and make a list of files to download, and of files to execute.
-    After that, for each item to downloaded, it makes a connection with the filesharing server to download it, and after downloaded all the necessary files, it executes all the files asked to execute.
-    Usually, it's only one BASH script.
+    First, it determine if it has to ask for the installation order or the attack order depending on how many times it has looped.
+    Then it requests it's order from the CC server, parses it, and makes a list of files to download and of files to execute.
+    After that, for each item to downloaded, it makes a connection with the filesharing server to download it, and after downloaded all the necessary files, it executes all the files recieved.
+    Usually this is just a BASH script.
 
 
 	\vspace{10pt}
 
 	\section{Difficulties encountered while writting the program}
 
-    While writing our botnet's code, we encountered different difficulties.
-    First, it was the first time we were coding in rust, so we had to learn the language.
-    Second, because we were three folks on the project, we needed to find a good organisation, and share well our tasks.
-    We also had other real problems with the code;
-    For instance, we first choosed Openssl as tls library, then, we find out that we needed to build statically linked binaries in order to make them run on the victim, and so for that we had to use musl, and rustls.
-    We could put it for the server, but because we were using self signed certificates, we had to keep Openssl for the client.
-    Then, the solution we find for the client was to active the cross-compilation for OpenSsl, and the problem was solved.
-    As other difficulties because of the cross-compilation, it was the fact that our exploit was using curl, so we tried to build it statically linked, we failed, so we look for an already statically linked binarry of curl on the internet, then we could find it.
-    Our original client design had a big flow in it, and so we had to rewrite again all it's main and flow function.
-    Fortunately, it was only thoses two function that was to be rewrote.
+    While writing our botnet's code, we encountered a variety of difficulties.
+    Firstly, it was the first time we were coding in rust, so we had to learn the language.
+    Secondly, it was just the three of us doing the project, we needed to be well organised and to distribute our tasks.
+    We also had problems with the code;
+    For instance, we first chose Openssl as our tls library but we find out that we needed to build statically linked binaries in order to make them run on the victim, and so for that we had to use musl and rustls.
+    This we could put on for the server, but because we were using self signed certificates, we had to keep Openssl for the client.
+    The solution we found for the client was to active the cross-compilation for OpenSsl, and the problem was solved.
+    We also encountered other difficulties because of the cross-compilation.
+    For exmaple we found that our exploit was using curl, so we tried to build it statically linked, but we failed, so we looked for an already statically linked binary of curl on the internet, which we thankfully found.
+    Our original client design had a big flow in it, and so we had to rewrite again all the main and flow function.
+    Fortunately, it was only thoses two function that had to be rewritten.
 
 
 
