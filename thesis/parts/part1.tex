@@ -11,9 +11,9 @@
 
     \vspace{10pt}
 
-    \section{Things necessary for the project we had to either find or makes.}
+    \section{Necessary components we had to source or produce.}
 
-    Our project had different parts.
+    Our project had different elements.
 
     \begin{itemize}
 
@@ -29,39 +29,39 @@
         Thanks to the work of opsxcq, we had an easy vulnerability to exploit.
         This vulnerability was CVE-2014-6271, known as Shellshock.
         In opsxcq's repository there was a docker image vulernable to Shellshock which was run by a simple command.
-        There were two other vulnerabilities in his github that we were interested in but ultimately chose to not use: CVE-2016-10033 and CVE-2017-7494.
+        There were two other vulnerabilities in their github that we were interested in but ultimately chose to not use: CVE-2016-10033 and CVE-2017-7494.
         There were both unsuitable for our application and would have required to much effort to get working. 
         We also considered log4j but decided to use an easier exploit to implement.
 
         \item Demonstrate the botnet.
-        In order to demonstrate that the botnet worked we had to prove that the botnet has really taken control of several machine.
-        To accomlish this we created a VM called vulnerableDOS. This VM would run wireshark and, once the botnet has taken control of the bots, receive and display the pings in the interace of wireshark.
-        At first we wanted to make our botnet run an actual DDOS attack on the vulnerableDOS machine, but the purpose of the project was not to make it run a complex attack because our goal was just to prove that we have indeed taken control of the vulnerables machines. Because of this, we chose to simply ping the vulnerable DOS VM.
+        In order to demonstrate that the botnet worked, we had to prove that the botnet had really taken control of several machines.
+        To accomplish this we created a VM called vulnerableDOS. This VM would run WireShark, once the botnet has taken control of the bots and received the pings. We will display the pings on the interace in wireshark.
+        At first, we wanted to make our botnet run a DDOS attack on the vulnerableDOS machine, but the purpose of the project was not to make the botnet run complex attack. Our goal was to prove that we have indeed taken control of the vulnerables machines. Therefore, we chose to simply ping the vulnerable DOS VM.
 
     \end{itemize}
 
-    Of course, we also had to make the botnet itself 
+    The botnet itself 
 
     \vspace{10pt}
 
     \section{Botnet design}
 
-    Designing and making the botnet was a real challenge. 
-    The architecture of our botnet would consist of a server and a client. The server had three tasks. 
+    Designing and making the botnet was very challenging. 
+    The architecture of our botnet would consist of a server and a client. The server has three tasks. 
     Firstly it runs the exploit against the victim in a thread.
     Secondly, it runs a Command and Control server (CC), in another thread, to deliver it's order.
-    The first order will always be to replicate the server on the victim, and the second one to ping the vulnerableDOS VM.
-    Thirdly, the server runs a file sharing server (fs), so that every time the CC server ask the victim to download a file, the file can be downloaded.
+    The first order will always be to replicate the server on the victim and the second one to ping the vulnerableDOS VM.
+    Thirdly, the server runs a file sharing server (fs), so that every time the CC server askes the victim to download a file, the file can be downloaded.
 
-    On the CC and the fs server, we implemented a TLS connection, using rustls. 
+    On the CC and the fs server, we implemented a Transport Layer Security (TLS) connection, using rustls. 
     The certificates used are self signed certificates, and every time the server is copied into the victim, openssl is used to generate the certificates.
     We were really lucky to find that openssl 1.0f was installed on the vulnerable image. 
-    If the docker image was made two year ealier, openssl probably wouldn't have been installed, forcing us to abandon the idea of using encrypted connections.
+    If the docker image was made two years earlier, openssl wouldn't have been installed, forcing us to abandon the idea of using encrypted connections.
 
-    The goal of the client is to connect to the server, get its orders, and execute whatever the orders entail.
+    The goal of the client is to connect to the server, get its orders, and execute whatever the orders may entail.
 
-    The server reads TLS certificates from the conf folder, and the orders file that it transmits to the victim.
-    It also creates files in the www directory eg.the list of ips that the next victim have to attack, a config file to easily generate new certificates, the exploit to run in order to run the client on the victim, and an installation script. In summary, the server permits the client to install whatever the servers serves and to replicate the server itself.
+    The server reads TLS certificates from the conf folder and the orders file that it transmits to the victim.
+    It also creates files in the www directory eg. The list of ips that the next victim has to attack, a config file to easily generate new certificates, the exploit to run in order to run the client on the victim, and an installation script. In summary, the server permits the client to install whatever the servers serves and to replicate the server itself.
 
     \vspace{10pt}
 
@@ -110,7 +110,7 @@
 
     \includegraphics[width=450pt]{botnet_flow.png}
 
-    Note that every time it receives an order, it will save it, and make it accessible to the server so that is can relay the orders to its child node, ie. the victim of the server that is being run.
+    Note that every time it receives an order, it will save it, and make it accessible to the server so that is can relay the orders to its child node, ie. the victim of the server that is being ran.
     The same is true for every file that is downloaded.
 
     Having explained the thought process behind the design of the project, let us now look at the code.
