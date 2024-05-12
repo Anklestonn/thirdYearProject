@@ -51,9 +51,9 @@
 
     At the begining of the main it imports the different functions.
     Then it imports TcpStream, command, and exit, to make the stream object, run system commands and to exit in case there is a problem.
-    Then, at the beginning of the main function, the working directory is set to where the binary is, it makes all the nessecarry directory ie.www, downloaded,conf, and exits in case of an error.
+    Then, at the beginning of the main function, the working directory is set to where the binary is, it makes all the necessary directory ie. www, downloaded, conf, and exits in case of an error.
     Then, it makes the stream with the CC server, and launches the flow function. 
-    It counts the number of times it loops, which is useful to know the amount of times it has connected to the server, and then to asks for order1 or order2 in the flow function.
+    It counts the number of times it loops, which also informs how many times it connected to the server, then it asks for order1 or order2 in the flow function.
     After each successful connection it waits for 5 seconds before launching the next connection.
 
     \# client/src/connection.rs
@@ -61,7 +61,7 @@
     \includegraphics[width=450pt]{client_flow.png}
 
     This is the flow function.
-    First, it determine if it has to ask for the installation order or the attack order depending on how many times it has looped.
+    First, it determines if it has to ask for the installation order or the attack order depending on how many times it has looped.
     Then it requests it's order from the CC server, parses it, and makes a list of files to download and of files to execute.
     After that, for each item to downloaded, it makes a connection with the filesharing server to download it, and after downloaded all the necessary files, it executes all the files recieved.
     Usually this is just a BASH script.
@@ -69,7 +69,7 @@
 
 	\vspace{10pt}
 
-	\section{Difficulties encountered while writting the program}
+	\section{Difficulties encountered while writing the program}
 
     While writing our botnet's code, we encountered a variety of difficulties.
     Firstly, it was the first time we were coding in rust, so we had to learn the language.
