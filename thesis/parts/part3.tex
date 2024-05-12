@@ -25,7 +25,8 @@
     Thus, showing how this lack of error handling is insufficient causing problems within the attack process. 
 
     Our choice of ports 7878 and 7870 is poor because in real world situations our server should only have one port, making it more efficient and flexible. 
-    The file sharing server and how it handles binary transfers is inefficient and should be merged to the CC server. 
+    The file sharing server and how it handles binary transfers is inefficient and should be merged to the CC server.
+    Another limitation is that our botnet is only linux compatible
     The installation process is inefficient, all downloaded files should be automatically be made accessible for the next node, instead of relying on the installation, and attack script. 
     For encryption we made it with self-signed certificates, the more adequate design would be to make our own root certificate and assign them that way. 
     This way there is a hierarchical trust model therefore enhancing security.

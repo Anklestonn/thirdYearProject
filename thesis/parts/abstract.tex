@@ -18,14 +18,14 @@
 
     We decided to learn about the intricacies of this threat by creating our own botnet, written in Rust. 
     Our idea was to use a worm's self replicating ability to conceal the hacker's host ip address, so that a bot only knows the ip address of the host that infected it, this way, it can be far more difficult for an ISP to take down the botnet.
-    Rust is known for its robust type system, safety and concurrency, as well as its fantastic performance making it a fantastic language to use for this botnet.
+    Rust is known for its robust type system, safety and concurrency, as well as its fantastic performance making it a wonderful language to use for this botnet.
     The aim was to delve into the low level world of programming networking functionality, hence why Rust was used. 
     We used the Rust library documentation and Rust's compiler to learn the language along the way and getting acquainted with how a networking program should be written in a low level.
     This botnet utilizes the ShellShock ie. CVE-2014-6271 which exploits a flaw in Bash which if it is couple with a webapp that needs to enter system command, allows a malicious actor to remotely execute arbitrary commands on the vulnerable host.
     Communication is encrypted with TLS thanks to OpenSSL and Rustls. 
-    Because of our needs for the demo, we made a primitive ip targeting system that allow only 1 to 1 parent-child node relations.
+    Thus for our needs in the demo, we made a primitive ip targeting system that allow only 1 to 1 parent-child node relations.
 
-    Despite the age of the exploit, its likely that some websites are still using this specific outdated bash version, meaning that our malware could hypothetically make some bots if released into a real-world situation. 
+    Despite the age of the exploit, its likely that some websites are still using this specific outdated bash version, meaning that our malware could hypothetically make bots if released into a real-world situation. 
     The exploit itself wasn't our main focus, rather, it was to have the ablity to exploit by calling a bash script, therefore, easier to make our botnet run on different exploits. 
     Possible future improvements would be to make our botnet run on multiple exploits at the same time.
     Therefore, it is necessary to have different types of botnets to use and study, in order to implement proper protection against botnet in IPS and IDS.
